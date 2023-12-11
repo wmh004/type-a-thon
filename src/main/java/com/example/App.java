@@ -19,7 +19,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        //stage.setResizable(false);
+        stage.setResizable(false);
         stage.setTitle("Type-a-Thon");
         stage.getIcons().add(new Image("file:///C:/Users/maxwell/Coding%20Stuff/Java/typeathon/src/images/keyboard.png"));
         scene = new Scene(loadFXML("primary"), 1920, 1080);
