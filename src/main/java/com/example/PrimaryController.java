@@ -6,6 +6,10 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
+import javafx.application.Platform;
+
 public class PrimaryController {
 
     @FXML
@@ -22,4 +26,15 @@ public class PrimaryController {
         stage.close();
     }
 
+    public void refresh(ActionEvent event) {
+        stage = (Stage) mainPage.getScene().getWindow();
+        Platform.runLater( () -> {
+            try {
+                new App().start( new Stage() );
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } );
+    }
 }
