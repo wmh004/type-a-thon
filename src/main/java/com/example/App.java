@@ -23,6 +23,7 @@ public class App extends Application {
         stage.setTitle("Type-a-Thon");
         stage.getIcons().add(new Image("file:///C:/Users/maxwell/Coding%20Stuff/Java/typeathon/src/images/keyboard.png"));
         scene = new Scene(loadFXML("primary"), 1920, 1080);
+        scene.getStylesheets().add(getClass().getResource("textbox.css").toExternalForm());
         stage.setFullScreen(true);
         stage.setScene(scene);
         stage.show();
