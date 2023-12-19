@@ -62,6 +62,15 @@
                         <CheckMenuItem mnemonicParsing="false" text="Numbers" />
                      </items>
                   </MenuButton>
+                  <AnchorPane layoutX="528.0" layoutY="11.0" prefHeight="40.0" prefWidth="91.0" style="-fx-background-color: #FFFFFF;">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="41.0" prefWidth="94.0">
+                           <font>
+                              <Font name="Consolas Bold" size="26.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
             <Button fx:id="refresh" layoutX="41.0" layoutY="624.0" mnemonicParsing="false" onAction="#refresh" prefHeight="48.0" prefWidth="128.0" text="Refresh">
