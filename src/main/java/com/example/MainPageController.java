@@ -10,7 +10,7 @@ import java.io.IOException;
 
 import javafx.application.Platform;
 
-public class PrimaryController {
+public class MainPageController {
 
     @FXML
     private Button exit;
