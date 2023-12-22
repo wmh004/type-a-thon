@@ -18,7 +18,7 @@ public class MainPageController {
     private BorderPane mainPage;
     @FXML
     private Button refresh;
-
+    
     Stage stage;
 
     public void quit(ActionEvent event) {
@@ -38,4 +38,6 @@ public class MainPageController {
             }
         } );
     }
+
+    
 }

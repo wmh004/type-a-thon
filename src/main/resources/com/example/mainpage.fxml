@@ -23,7 +23,7 @@
       <HBox prefHeight="100.0" prefWidth="1634.0" BorderPane.alignment="CENTER" />
    </bottom>
    <top>
-      <AnchorPane prefHeight="113.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane accessibleRole="BUTTON" prefHeight="113.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <Label layoutX="92.0" layoutY="14.0" prefHeight="76.0" prefWidth="292.0" text="Type-A-Thon">
                <font>
@@ -71,6 +71,15 @@
                         </Label>
                      </children>
                   </AnchorPane>
+                  <MenuButton accessibleRole="BUTTON" layoutX="670.0" layoutY="12.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="209.0" text="Login / Sign Up">
+                     <font>
+                        <Font name="Consolas Bold" size="19.0" />
+                     </font>
+                     <items>
+                        <CheckMenuItem mnemonicParsing="false" text="Login" />
+                        <CheckMenuItem mnemonicParsing="false" text="Sign Up" />
+                     </items>
+                  </MenuButton>
                </children>
             </AnchorPane>
             <Button fx:id="refresh" layoutX="41.0" layoutY="624.0" mnemonicParsing="false" onAction="#refresh" prefHeight="48.0" prefWidth="128.0" text="Refresh">
