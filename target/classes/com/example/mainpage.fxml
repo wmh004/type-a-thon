@@ -71,15 +71,11 @@
                         </Label>
                      </children>
                   </AnchorPane>
-                  <MenuButton accessibleRole="BUTTON" layoutX="670.0" layoutY="12.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="209.0" text="Login / Sign Up">
+                  <Button fx:id="login" layoutX="733.0" layoutY="7.0" mnemonicParsing="false" onAction="#userLogin" prefHeight="48.0" prefWidth="128.0" text="Login">
                      <font>
                         <Font name="Consolas Bold" size="19.0" />
                      </font>
-                     <items>
-                        <CheckMenuItem mnemonicParsing="false" text="Login" />
-                        <CheckMenuItem mnemonicParsing="false" text="Sign Up" />
-                     </items>
-                  </MenuButton>
+                  </Button>
                </children>
             </AnchorPane>
             <Button fx:id="refresh" layoutX="41.0" layoutY="624.0" mnemonicParsing="false" onAction="#refresh" prefHeight="48.0" prefWidth="128.0" text="Refresh">
