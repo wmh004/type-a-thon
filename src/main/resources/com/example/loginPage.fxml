@@ -46,7 +46,7 @@
                   <Font name="System Bold" size="30.0" />
                </font>
             </Label>
-            <TextField layoutX="154.0" layoutY="422.0" prefHeight="66.0" prefWidth="298.0" promptText="Enter your Matrics No." style="-fx-background-color: #FFFFFF;">
+            <TextField layoutX="139.0" layoutY="435.0" prefHeight="60.0" prefWidth="329.0" promptText="Enter your Matrics No." style="-fx-background-color: #FFFFFF;">
                <font>
                   <Font size="20.0" />
                </font></TextField>
