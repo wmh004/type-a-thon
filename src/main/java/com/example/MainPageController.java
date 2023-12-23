@@ -3,7 +3,9 @@ package com.example;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -13,10 +15,12 @@ import javafx.stage.Stage;
 
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.application.Platform;
 
-public class MainPageController {
+public class MainPageController implements Initializable{
 
     @FXML
     private Button exit;
@@ -24,9 +28,18 @@ public class MainPageController {
     private BorderPane mainPage;
     @FXML
     private Button refresh;
+    @FXML
+    private Button login;
+
+    private Stage stage;
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        
+    }
 
     //loginPage
-    @FXML
+   /*  @FXML
     private Button loginButton;
     @FXML
     private Label wrongLogin;
@@ -35,7 +48,9 @@ public class MainPageController {
     @FXML
     private PasswordField password;
 
-    Stage stage;
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
 
     public void userLogin(ActionEvent event) throws IOException {
         checkLogin();
@@ -60,7 +75,7 @@ public class MainPageController {
         else {
             wrongLogin.setText("Wrong username or password!");
         }
-    }
+    }*/
 
     public void quit(ActionEvent event) {
         stage = (Stage) mainPage.getScene().getWindow();
@@ -74,11 +89,13 @@ public class MainPageController {
             try {
                 new App().start( new Stage() );
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         } );
     }
 
-    
+    public void switchToLogin(ActionEvent event) throws IOException {
+        App a = new App();
+        a.changeScene("loginPage.fxml");
+    }
 }

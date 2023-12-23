@@ -1,6 +1,10 @@
 package com.example;
 
-import java.io.IOException;
+public class loginPageController {
+
+}
+
+/*import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -27,4 +31,4 @@ public class loginPage extends Application
         Parent pane = FXMLLoader.load(getClass().getResource(fxml));
         stg.getScene().setRoot(pane);
     }
-}
+}*/

@@ -13,14 +13,17 @@ import java.io.IOException;
 
 public class App extends Application {
 
+    private static Stage stg;
     private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
+        stg = stage;
         stage.setResizable(false);
+        Parent root = FXMLLoader.load(getClass().getResource("mainpage.fxml"));
         stage.setTitle("Type-a-Thon");
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/keyboard.png")));
-        scene = new Scene(loadFXML("mainpage"), 1920, 1080);
+        scene = new Scene(root, 1600, 900);
         scene.getStylesheets().add(getClass().getResource("textbox.css").toExternalForm());
         stage.setFullScreen(true);
         stage.setScene(scene);
@@ -30,13 +33,9 @@ public class App extends Application {
         stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
     }
 
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
-
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
+    public void changeScene(String fxml) throws IOException {
+        Parent pane = FXMLLoader.load(getClass().getResource(fxml));
+        stg.getScene().setRoot(pane);
     }
 
     public static void main(String[] args) {
