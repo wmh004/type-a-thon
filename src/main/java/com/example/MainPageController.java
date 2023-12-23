@@ -38,8 +38,7 @@ public class MainPageController implements Initializable{
     }
 
     public void refresh(ActionEvent event) {
-        stage = (Stage) mainPage.getScene().getWindow();
-        stage.close();
+        quit(event);
         Platform.runLater( () -> {
             try {
                 new App().start( new Stage() );
