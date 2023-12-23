@@ -38,45 +38,6 @@ public class MainPageController implements Initializable{
         
     }
 
-    //loginPage
-   /*  @FXML
-    private Button loginButton;
-    @FXML
-    private Label wrongLogin;
-    @FXML
-    private TextField username;
-    @FXML
-    private PasswordField password;
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
-    public void userLogin(ActionEvent event) throws IOException {
-        checkLogin();
-    }
-
-    private void checkLogin() throws IOException {
-        loginPage m = new loginPage();
-
-        //Example(will use file input & output)
-        if(username.getText().toString().equals("22002402") && password.getText().toString().equals("12345678"))
-        {
-            wrongLogin.setText("Login Success!");
-
-            m.changeScene("afterLogin.fxml");
-        }
-
-        else if(username.getText().isEmpty() && password.getText().isEmpty())
-        {
-            wrongLogin.setText("Please enter your data!");
-        }
-
-        else {
-            wrongLogin.setText("Wrong username or password!");
-        }
-    }*/
-
     public void quit(ActionEvent event) {
         stage = (Stage) mainPage.getScene().getWindow();
         stage.close();
