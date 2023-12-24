@@ -70,7 +70,7 @@ public class GameController implements Initializable {
     }
 
     public void toMainMenu(ActionEvent ae) throws IOException {
-        Main m = new Main();
+        App m = new App();
         m.changeScene("mainpage.fxml");
     }
 
