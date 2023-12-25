@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #808080;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.afterLoginPageController.java">
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text layoutX="450.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You've successfully login as:" wrappingWidth="742.3934326171875">
+               <font>
+                  <Font name="System Italic" size="60.0" />
+               </font>
+            </Text>
+            <Label layoutX="601.0" layoutY="405.0" prefHeight="74.0" prefWidth="439.0">
+               <font>
+                  <Font size="50.0" />
+               </font>
+            </Label>
+            <Button fx:id="logOut" layoutX="792.0" layoutY="522.0" mnemonicParsing="false" text="Log out" />
+            <Button fx:id="back" layoutX="800.0" layoutY="556.0" mnemonicParsing="false" onAction="#switchToMainPage" text="Back" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
