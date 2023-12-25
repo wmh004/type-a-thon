@@ -1,6 +1,5 @@
 package com.example;
 
-import javafx.fxml.LoadException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
