@@ -24,6 +24,8 @@ public class MainPageController implements Initializable{
     private Button refresh;
     @FXML
     private Button login;
+    @FXML
+    private Button leaderboard;
 
     private Stage stage;
 
@@ -51,5 +53,10 @@ public class MainPageController implements Initializable{
     public void switchToLogin(ActionEvent event) throws IOException {
         App a = new App();
         a.changeScene("loginPage.fxml");
+    }
+
+    public void switchToLeaderboard(ActionEvent event) throws IOException {
+        App a = new App();
+        a.changeScene("leaderboard.fxml");
     }
 }

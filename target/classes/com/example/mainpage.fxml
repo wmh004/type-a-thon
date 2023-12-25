@@ -88,6 +88,11 @@
                   <Font name="Consolas Bold" size="19.0" />
                </font>
             </Button>
+            <Button fx:id="leaderboard" layoutX="631.0" layoutY="624.0" mnemonicParsing="false" onAction="#switchToLeaderboard" prefHeight="48.0" prefWidth="137.0" text="Leaderboard">
+               <font>
+                  <Font name="Consolas Bold" size="18.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </center>
