@@ -14,8 +14,8 @@ public class signUpPageController
     @FXML
     private Button back;
 
-    public void switchToMainPage(ActionEvent event) throws IOException {
+    public void switchToLoginPage(ActionEvent event) throws IOException {
         App a = new App();
-        a.changeScene("mainpage.fxml");
+        a.changeScene("loginPage.fxml");
     }
 }
