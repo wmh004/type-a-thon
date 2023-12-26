@@ -11,14 +11,14 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Text layoutX="178.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You've successfully login as:" wrappingWidth="243.193359375">
+            <Text layoutX="138.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You've successfully login as:" wrappingWidth="322.39337158203125">
                <font>
-                  <Font name="System Italic" size="20.0" />
+                  <Font name="Consolas Italic" size="20.0" />
                </font>
             </Text>
-            <Label layoutX="178.0" layoutY="163.0" prefHeight="38.0" prefWidth="242.0">
+            <Label layoutX="160.0" layoutY="175.0" prefHeight="49.0" prefWidth="277.0">
                <font>
-                  <Font size="25.0" />
+                  <Font name="System Bold Italic" size="25.0" />
                </font>
             </Label>
             <Button fx:id="logOut" layoutX="273.0" layoutY="279.0" mnemonicParsing="false" text="Log out" />
