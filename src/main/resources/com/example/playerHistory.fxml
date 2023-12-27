@@ -23,7 +23,7 @@
          <children>
             <Button fx:id="back" layoutX="757.0" layoutY="80.0" mnemonicParsing="false" onAction="#switchtoLeaderboard" prefHeight="40.0" prefWidth="85.0" text="Back">
                <font>
-                  <Font size="17.0" />
+                  <Font name="Consolas" size="17.0" />
                </font>
             </Button>
          </children>
