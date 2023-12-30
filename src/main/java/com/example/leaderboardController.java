@@ -13,9 +13,9 @@ public class leaderboardController
     @FXML
     private Button back;
 
-    public void switchToPlayerHistory(ActionEvent event) throws IOException {
+    public void switchToPlayerProfile(ActionEvent event) throws IOException {
         App a = new App();
-        a.changeScene("playerHistory.fxml");
+        a.changeScene("playerProfile.fxml");
     }
 
     public void switchToMainPage(ActionEvent event) throws IOException {
