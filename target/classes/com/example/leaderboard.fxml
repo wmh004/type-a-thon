@@ -41,7 +41,7 @@
                   <Font name="Consolas" size="17.0" />
                </font>
             </Button>
-            <Button fx:id="playerHistory" layoutX="675.0" layoutY="55.0" mnemonicParsing="false" onAction="#switchToPlayerHistory" prefHeight="46.0" prefWidth="250.0" text="Player's History">
+            <Button fx:id="playerHistory" layoutX="657.0" layoutY="53.0" mnemonicParsing="false" onAction="#switchToPlayerProfile" prefHeight="46.0" prefWidth="287.0" text="View Personal Profile">
                <font>
                   <Font name="Consolas Bold" size="22.0" />
                </font>
