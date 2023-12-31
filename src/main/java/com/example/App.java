@@ -24,7 +24,6 @@ public class App extends Application {
         stage.setTitle("Type-a-Thon");
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/keyboard.png")));
         scene = new Scene(root, 1600, 900);
-        scene.getStylesheets().add(getClass().getResource("textbox.css").toExternalForm());
         stage.setFullScreen(true);
         stage.setScene(scene);
         stage.show();
