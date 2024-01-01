@@ -43,327 +43,339 @@
    <center>
       <AnchorPane prefHeight="494.0" prefWidth="1600.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
-            <Text layoutX="199.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="15 seconds" textAlignment="CENTER" wrappingWidth="116.13747024536133">
+            <Text layoutX="207.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="15 seconds" textAlignment="CENTER" wrappingWidth="116.13747024536133">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text layoutX="315.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="30 seconds" textAlignment="CENTER" wrappingWidth="116.13747024536133">
+            <Text layoutX="323.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="30 seconds" textAlignment="CENTER" wrappingWidth="116.13747024536133">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text layoutX="431.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="45 seconds" textAlignment="CENTER" wrappingWidth="116.13747024536133">
+            <Text layoutX="439.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="45 seconds" textAlignment="CENTER" wrappingWidth="116.13747024536133">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text layoutX="550.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="60 seconds" textAlignment="CENTER" wrappingWidth="116.13747024536133">
+            <Text layoutX="558.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="60 seconds" textAlignment="CENTER" wrappingWidth="116.13747024536133">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Label layoutX="233.0" layoutY="116.0" prefHeight="48.0" prefWidth="49.0" text="Label">
+            <Label layoutX="241.0" layoutY="122.0" prefHeight="48.0" prefWidth="49.0" text="Label">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="584.0" layoutY="116.0" prefHeight="48.0" prefWidth="49.0" text="Label">
+            <Label layoutX="592.0" layoutY="122.0" prefHeight="48.0" prefWidth="49.0" text="Label">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="465.0" layoutY="116.0" prefHeight="48.0" prefWidth="49.0" text="Label">
+            <Label layoutX="473.0" layoutY="122.0" prefHeight="48.0" prefWidth="49.0" text="Label">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="349.0" layoutY="116.0" prefHeight="48.0" prefWidth="49.0" text="Label">
+            <Label layoutX="357.0" layoutY="122.0" prefHeight="48.0" prefWidth="49.0" text="Label">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="235.0" layoutY="178.0" prefHeight="45.0" prefWidth="46.0" text="Label">
+            <Label layoutX="243.0" layoutY="184.0" prefHeight="45.0" prefWidth="46.0" text="Label">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="350.0" layoutY="178.0" prefHeight="45.0" prefWidth="46.0" text="Label">
+            <Label layoutX="358.0" layoutY="184.0" prefHeight="45.0" prefWidth="46.0" text="Label">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="470.0" layoutY="178.0" prefHeight="45.0" prefWidth="46.0" text="Label">
+            <Label layoutX="478.0" layoutY="184.0" prefHeight="45.0" prefWidth="46.0" text="Label">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="586.0" layoutY="178.0" prefHeight="45.0" prefWidth="46.0" text="Label">
+            <Label layoutX="594.0" layoutY="184.0" prefHeight="45.0" prefWidth="46.0" text="Label">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Text layoutX="859.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10 words" textAlignment="CENTER" wrappingWidth="116.13747024536133">
+            <Text layoutX="919.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10 words" textAlignment="CENTER" wrappingWidth="116.13747024536133">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text layoutX="975.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="25 words" textAlignment="CENTER" wrappingWidth="116.13747024536133">
+            <Text layoutX="1035.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="25 words" textAlignment="CENTER" wrappingWidth="116.13747024536133">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text layoutX="1091.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="50 words" textAlignment="CENTER" wrappingWidth="116.13747024536133">
+            <Text layoutX="1151.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="50 words" textAlignment="CENTER" wrappingWidth="116.13747024536133">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text layoutX="1210.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100 words" textAlignment="CENTER" wrappingWidth="116.13747024536133">
+            <Text layoutX="1270.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100 words" textAlignment="CENTER" wrappingWidth="116.13747024536133">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Label layoutX="892.0" layoutY="121.0" prefHeight="48.0" prefWidth="49.0" text="Label">
+            <Label layoutX="952.0" layoutY="130.0" prefHeight="48.0" prefWidth="49.0" text="Label">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="1243.0" layoutY="121.0" prefHeight="48.0" prefWidth="49.0" text="Label">
+            <Label layoutX="1303.0" layoutY="130.0" prefHeight="48.0" prefWidth="49.0" text="Label">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="1124.0" layoutY="121.0" prefHeight="48.0" prefWidth="49.0" text="Label">
+            <Label layoutX="1184.0" layoutY="130.0" prefHeight="48.0" prefWidth="49.0" text="Label">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="1008.0" layoutY="121.0" prefHeight="48.0" prefWidth="49.0" text="Label">
+            <Label layoutX="1068.0" layoutY="130.0" prefHeight="48.0" prefWidth="49.0" text="Label">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="894.0" layoutY="183.0" prefHeight="45.0" prefWidth="46.0" text="Label">
+            <Label layoutX="954.0" layoutY="192.0" prefHeight="45.0" prefWidth="46.0" text="Label">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="1009.0" layoutY="183.0" prefHeight="45.0" prefWidth="46.0" text="Label">
+            <Label layoutX="1069.0" layoutY="192.0" prefHeight="45.0" prefWidth="46.0" text="Label">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="1129.0" layoutY="183.0" prefHeight="45.0" prefWidth="46.0" text="Label">
+            <Label layoutX="1189.0" layoutY="192.0" prefHeight="45.0" prefWidth="46.0" text="Label">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="1245.0" layoutY="183.0" prefHeight="45.0" prefWidth="46.0" text="Label">
+            <Label layoutX="1305.0" layoutY="192.0" prefHeight="45.0" prefWidth="46.0" text="Label">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Text layoutX="787.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="wpm" textAlignment="CENTER" wrappingWidth="71.33745193481445">
+            <Text layoutX="849.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="wpm" textAlignment="CENTER" wrappingWidth="71.33745193481445">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Text>
-            <Text layoutX="798.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="acc" textAlignment="CENTER" wrappingWidth="48.9374885559082">
+            <Text layoutX="860.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="acc" textAlignment="CENTER" wrappingWidth="48.9374885559082">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Text>
-            <Text layoutX="1326.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1000 words" textAlignment="CENTER" wrappingWidth="116.13747024536133">
+            <Text layoutX="1386.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1000 words" textAlignment="CENTER" wrappingWidth="116.13747024536133">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Label layoutX="1359.0" layoutY="121.0" prefHeight="48.0" prefWidth="49.0" text="Label">
+            <Label layoutX="1419.0" layoutY="130.0" prefHeight="48.0" prefWidth="49.0" text="Label">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="1361.0" layoutY="183.0" prefHeight="45.0" prefWidth="46.0" text="Label">
+            <Label layoutX="1421.0" layoutY="192.0" prefHeight="45.0" prefWidth="46.0" text="Label">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Text layoutX="122.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="wpm" textAlignment="CENTER" wrappingWidth="71.33745193481445">
+            <Text layoutX="130.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="wpm" textAlignment="CENTER" wrappingWidth="71.33745193481445">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Text>
-            <Text layoutX="136.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="acc" textAlignment="CENTER" wrappingWidth="48.9374885559082">
+            <Text layoutX="144.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="acc" textAlignment="CENTER" wrappingWidth="48.9374885559082">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Text>
-            <Text layoutX="655.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Normal Game Mode">
+            <Text layoutX="655.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Normal Game Mode">
                <font>
                   <Font name="System Bold Italic" size="32.0" />
                </font>
             </Text>
-            <Text layoutX="211.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="15 seconds" textAlignment="CENTER" wrappingWidth="116.13747024536133">
+            <Text layoutX="207.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="15 seconds" textAlignment="CENTER" wrappingWidth="116.13747024536133">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text layoutX="327.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="30 seconds" textAlignment="CENTER" wrappingWidth="116.13747024536133">
+            <Text layoutX="323.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="30 seconds" textAlignment="CENTER" wrappingWidth="116.13747024536133">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text layoutX="443.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="45 seconds" textAlignment="CENTER" wrappingWidth="116.13747024536133">
+            <Text layoutX="439.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="45 seconds" textAlignment="CENTER" wrappingWidth="116.13747024536133">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text layoutX="562.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="60 seconds" textAlignment="CENTER" wrappingWidth="116.13747024536133">
+            <Text layoutX="558.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="60 seconds" textAlignment="CENTER" wrappingWidth="116.13747024536133">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Label layoutX="245.0" layoutY="362.0" prefHeight="48.0" prefWidth="49.0" text="Label">
+            <Label layoutX="241.0" layoutY="387.0" prefHeight="48.0" prefWidth="49.0" text="Label">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="596.0" layoutY="362.0" prefHeight="48.0" prefWidth="49.0" text="Label">
+            <Label layoutX="592.0" layoutY="387.0" prefHeight="48.0" prefWidth="49.0" text="Label">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="477.0" layoutY="362.0" prefHeight="48.0" prefWidth="49.0" text="Label">
+            <Label layoutX="473.0" layoutY="387.0" prefHeight="48.0" prefWidth="49.0" text="Label">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="361.0" layoutY="362.0" prefHeight="48.0" prefWidth="49.0" text="Label">
+            <Label layoutX="357.0" layoutY="387.0" prefHeight="48.0" prefWidth="49.0" text="Label">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="247.0" layoutY="424.0" prefHeight="45.0" prefWidth="46.0" text="Label">
+            <Label layoutX="243.0" layoutY="449.0" prefHeight="45.0" prefWidth="46.0" text="Label">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="362.0" layoutY="424.0" prefHeight="45.0" prefWidth="46.0" text="Label">
+            <Label layoutX="358.0" layoutY="449.0" prefHeight="45.0" prefWidth="46.0" text="Label">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="482.0" layoutY="424.0" prefHeight="45.0" prefWidth="46.0" text="Label">
+            <Label layoutX="478.0" layoutY="449.0" prefHeight="45.0" prefWidth="46.0" text="Label">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="598.0" layoutY="424.0" prefHeight="45.0" prefWidth="46.0" text="Label">
+            <Label layoutX="594.0" layoutY="449.0" prefHeight="45.0" prefWidth="46.0" text="Label">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Text layoutX="871.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10 words" textAlignment="CENTER" wrappingWidth="116.13747024536133">
+            <Text layoutX="926.0" layoutY="367.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10 words" textAlignment="CENTER" wrappingWidth="116.13747024536133">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text layoutX="987.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="25 words" textAlignment="CENTER" wrappingWidth="116.13747024536133">
+            <Text layoutX="1042.0" layoutY="367.0" strokeType="OUTSIDE" strokeWidth="0.0" text="25 words" textAlignment="CENTER" wrappingWidth="116.13747024536133">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text layoutX="1103.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="50 words" textAlignment="CENTER" wrappingWidth="116.13747024536133">
+            <Text layoutX="1158.0" layoutY="367.0" strokeType="OUTSIDE" strokeWidth="0.0" text="50 words" textAlignment="CENTER" wrappingWidth="116.13747024536133">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text layoutX="1222.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100 words" textAlignment="CENTER" wrappingWidth="116.13747024536133">
+            <Text layoutX="1277.0" layoutY="367.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100 words" textAlignment="CENTER" wrappingWidth="116.13747024536133">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Label layoutX="904.0" layoutY="367.0" prefHeight="48.0" prefWidth="49.0" text="Label">
+            <Label layoutX="959.0" layoutY="392.0" prefHeight="48.0" prefWidth="49.0" text="Label">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="1255.0" layoutY="367.0" prefHeight="48.0" prefWidth="49.0" text="Label">
+            <Label layoutX="1310.0" layoutY="392.0" prefHeight="48.0" prefWidth="49.0" text="Label">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="1136.0" layoutY="367.0" prefHeight="48.0" prefWidth="49.0" text="Label">
+            <Label layoutX="1191.0" layoutY="392.0" prefHeight="48.0" prefWidth="49.0" text="Label">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="1020.0" layoutY="367.0" prefHeight="48.0" prefWidth="49.0" text="Label">
+            <Label layoutX="1075.0" layoutY="392.0" prefHeight="48.0" prefWidth="49.0" text="Label">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="906.0" layoutY="429.0" prefHeight="45.0" prefWidth="46.0" text="Label">
+            <Label layoutX="961.0" layoutY="454.0" prefHeight="45.0" prefWidth="46.0" text="Label">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="1021.0" layoutY="429.0" prefHeight="45.0" prefWidth="46.0" text="Label">
+            <Label layoutX="1076.0" layoutY="454.0" prefHeight="45.0" prefWidth="46.0" text="Label">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="1141.0" layoutY="429.0" prefHeight="45.0" prefWidth="46.0" text="Label">
+            <Label layoutX="1196.0" layoutY="454.0" prefHeight="45.0" prefWidth="46.0" text="Label">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="1257.0" layoutY="429.0" prefHeight="45.0" prefWidth="46.0" text="Label">
+            <Label layoutX="1312.0" layoutY="454.0" prefHeight="45.0" prefWidth="46.0" text="Label">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Text layoutX="799.0" layoutY="398.0" strokeType="OUTSIDE" strokeWidth="0.0" text="wpm" textAlignment="CENTER" wrappingWidth="71.33745193481445">
+            <Text layoutX="854.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" text="wpm" textAlignment="CENTER" wrappingWidth="71.33745193481445">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Text>
-            <Text layoutX="810.0" layoutY="459.0" strokeType="OUTSIDE" strokeWidth="0.0" text="acc" textAlignment="CENTER" wrappingWidth="48.9374885559082">
+            <Text layoutX="865.0" layoutY="484.0" strokeType="OUTSIDE" strokeWidth="0.0" text="acc" textAlignment="CENTER" wrappingWidth="48.9374885559082">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Text>
-            <Text layoutX="1338.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1000 words" textAlignment="CENTER" wrappingWidth="116.13747024536133">
+            <Text layoutX="1393.0" layoutY="367.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1000 words" textAlignment="CENTER" wrappingWidth="116.13747024536133">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Label layoutX="1371.0" layoutY="367.0" prefHeight="48.0" prefWidth="49.0" text="Label">
+            <Label layoutX="1426.0" layoutY="392.0" prefHeight="48.0" prefWidth="49.0" text="Label">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="1373.0" layoutY="429.0" prefHeight="45.0" prefWidth="46.0" text="Label">
+            <Label layoutX="1428.0" layoutY="454.0" prefHeight="45.0" prefWidth="46.0" text="Label">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Text layoutX="134.0" layoutY="394.0" strokeType="OUTSIDE" strokeWidth="0.0" text="wpm" textAlignment="CENTER" wrappingWidth="71.33745193481445">
+            <Text layoutX="130.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="wpm" textAlignment="CENTER" wrappingWidth="71.33745193481445">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Text>
-            <Text layoutX="148.0" layoutY="454.0" strokeType="OUTSIDE" strokeWidth="0.0" text="acc" textAlignment="CENTER" wrappingWidth="48.9374885559082">
+            <Text layoutX="144.0" layoutY="479.0" strokeType="OUTSIDE" strokeWidth="0.0" text="acc" textAlignment="CENTER" wrappingWidth="48.9374885559082">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Text>
-            <Text layoutX="736.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quotes">
+            <Text layoutX="734.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quotes">
                <font>
                   <Font name="System Bold Italic" size="32.0" />
                </font>
             </Text>
-            <Text layoutX="5.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" wrappingWidth="1604.0034790039062" />
+            <Text layoutX="14.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" wrappingWidth="1604.0034790039062" />
+            <Text layoutX="34.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Best Score: ">
+               <font>
+                  <Font name="System Bold Italic" size="32.0" />
+               </font>
+            </Text>
+            <Text layoutX="36.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Best Score: ">
+               <font>
+                  <Font name="System Bold Italic" size="32.0" />
+               </font>
+            </Text>
+            <Text layoutX="7.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" wrappingWidth="1604.0034790039062" />
+            <Text layoutX="7.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" wrappingWidth="1604.0034790039062" />
          </children>
       </AnchorPane>
    </center>
