@@ -91,7 +91,7 @@
                         </Label>
                      </children>
                   </AnchorPane>
-                  <Button fx:id="login" layoutX="733.0" layoutY="7.0" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="48.0" prefWidth="128.0" text="Login">
+                  <Button fx:id="login" layoutX="761.0" layoutY="11.0" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="40.0" prefWidth="110.0" text="Login">
                      <font>
                         <Font name="Consolas Bold" size="19.0" />
                      </font>
