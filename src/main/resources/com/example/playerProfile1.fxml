@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #f5f5dc;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.playerProfileController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #f5f5dc;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.playerProfileController1">
    <top>
       <AnchorPane prefHeight="221.0" prefWidth="1600.0" BorderPane.alignment="CENTER">
          <children>
@@ -27,12 +27,7 @@
    <bottom>
       <AnchorPane prefHeight="135.0" prefWidth="1600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="back" layoutX="758.0" layoutY="50.0" mnemonicParsing="false" onAction="#switchtoLeaderboard" prefHeight="40.0" prefWidth="85.0" text="Back">
-               <font>
-                  <Font name="Consolas" size="17.0" />
-               </font>
-            </Button>
-            <Button fx:id="next" layoutX="757.0" layoutY="6.0" mnemonicParsing="false" onAction="#switchToNextPage" prefHeight="40.0" prefWidth="85.0" text="Next">
+            <Button fx:id="back" layoutX="759.0" layoutY="30.0" mnemonicParsing="false" onAction="#switchToPlayerProfile" prefHeight="40.0" prefWidth="85.0" text="Back">
                <font>
                   <Font name="Consolas" size="17.0" />
                </font>
@@ -198,7 +193,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Text>
-            <Text layoutX="655.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Normal Game Mode">
+            <Text layoutX="718.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numbers">
                <font>
                   <Font name="System Bold Italic" size="32.0" />
                </font>
@@ -358,7 +353,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Text>
-            <Text layoutX="736.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quotes">
+            <Text layoutX="695.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Punctuation">
                <font>
                   <Font name="System Bold Italic" size="32.0" />
                </font>

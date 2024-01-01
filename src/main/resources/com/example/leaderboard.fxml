@@ -12,12 +12,12 @@
    <top>
       <AnchorPane prefHeight="222.0" prefWidth="1600.0" BorderPane.alignment="CENTER">
          <children>
-            <Text layoutX="527.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LEADERBOARD">
+            <Text layoutX="514.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leaderboards">
                <font>
                   <Font name="Consolas Bold" size="90.0" />
                </font>
             </Text>
-            <MenuButton layoutX="709.0" layoutY="152.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="204.0" text="Game Mode">
+            <MenuButton fx:id="gameMode" layoutX="709.0" layoutY="152.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="204.0" text="Game Mode">
               <items>
                 <MenuItem mnemonicParsing="false" text="Timed" />
                 <MenuItem mnemonicParsing="false" text="Words" />

@@ -31,14 +31,17 @@
                   <Font name="Consolas Bold" size="47.0" />
                </font>
             </Label>
-            <Button layoutX="454.0" layoutY="31.0" mnemonicParsing="false" text="TIMED" />
-            <Button layoutX="454.0" layoutY="64.0" mnemonicParsing="false" text="WORDS" />
-            <Button fx:id="quotesButton" layoutX="454.0" layoutY="98.0" mnemonicParsing="false" onAction="#replaceTextWithQuotes" text="QUOTES" />
+            <Button layoutX="454.0" layoutY="31.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="66.0" text="TIMED" />
+            <Button layoutX="454.0" layoutY="64.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="66.0" text="WORDS" />
+            <Button fx:id="quotesButton" layoutX="454.0" layoutY="98.0" mnemonicParsing="false" onAction="#replaceTextWithQuotes" prefHeight="26.0" prefWidth="66.0" text="QUOTES" />
             <Button fx:id="punctuationButton" layoutX="707.0" layoutY="98.0" mnemonicParsing="false" onAction="#replaceTextWithPunctuation" text="PUNCTUATION" />
-            <Button fx:id="numbersButton" layoutX="730.0" layoutY="64.0" mnemonicParsing="false" onAction="#replaceTextWithNumbers" text="NUMBERS" />
+            <Button fx:id="numbersButton" layoutX="707.0" layoutY="64.0" mnemonicParsing="false" onAction="#replaceTextWithNumbers" prefHeight="26.0" prefWidth="98.0" text="NUMBERS" />
             <ChoiceBox fx:id="timerChoiceBox" layoutX="525.0" layoutY="31.0" prefHeight="26.0" prefWidth="81.0" />
             <ChoiceBox fx:id="wordChoiceBox" layoutX="525.0" layoutY="64.0" prefHeight="26.0" prefWidth="82.0" />
-            <Button fx:id="stopwatchButton" layoutX="918.0" layoutY="31.0" mnemonicParsing="false" onAction="#toggleStopwatch" text="Start" />
+            <Button fx:id="stopwatchButton" layoutX="909.0" layoutY="28.0" mnemonicParsing="false" onAction="#toggleStopwatch" prefHeight="27.0" prefWidth="57.0" text="Start">
+               <font>
+                  <Font size="15.0" />
+               </font></Button>
             <Label fx:id="elapsedTimeLabel" alignment="CENTER" layoutX="891.0" layoutY="69.0" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: white;">
                <font>
                   <Font name="Wormbox" size="20.0" />
@@ -96,7 +99,10 @@
                         <Font name="Consolas Bold" size="19.0" />
                      </font>
                   </Button>
-                  <Button fx:id="resultButton" layoutX="648.0" layoutY="18.0" mnemonicParsing="false" onAction="#switchSceneToResult" onKeyPressed="#switchSceneToResult" text="Results" />
+                  <Button fx:id="resultButton" layoutX="645.0" layoutY="16.0" mnemonicParsing="false" onAction="#switchSceneToResult" onKeyPressed="#switchSceneToResult" text="Results">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Button>
                </children>
             </AnchorPane>
             <Button fx:id="refresh" layoutX="41.0" layoutY="624.0" mnemonicParsing="false" onAction="#refresh" prefHeight="48.0" prefWidth="128.0" text="Refresh">
