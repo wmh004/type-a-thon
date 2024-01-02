@@ -637,9 +637,30 @@ public class MainPageController implements Initializable{
         } );
     }
 
-    public void switchSceneToResult(ActionEvent event) throws IOException {
-        App a = new App();
-        a.changeScene("Results.fxml");
+    @FXML
+    void switchSceneToResult(ActionEvent event) {
+        //change();
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("Results.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            
+            //Since we need to pass values to the resultscontroller we need to do this first
+            ResultController controller = loader.getController();
+            controller.initializeMyData(secondsRemaining, errorCount, totalChar);
+            
+            controller.setCurrentWords(enteredWords);
+            System.out.println("Entered words are " + enteredWords);
+
+
+            Stage theStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            theStage.setScene(scene);
+            theStage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        
     }
 
     public void switchToLogin(ActionEvent event) throws IOException {
