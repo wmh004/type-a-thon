@@ -2,6 +2,8 @@ package com.example;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -11,12 +13,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
 
 
 public class ResultController implements Initializable {
@@ -34,6 +38,24 @@ public class ResultController implements Initializable {
 
     @FXML
     private Button playSame;
+
+    @FXML
+    private LineChart<String, Number> wpmGraph;
+
+    @FXML
+    private LineChart<String, Number> accuracyGraph;
+
+    @FXML
+    private CategoryAxis xaccuracy;
+
+    @FXML
+    private CategoryAxis xwpm;
+
+    @FXML
+    private NumberAxis yaccuracy;
+
+    @FXML
+    private NumberAxis ywpm;
 
     private List<String> currentWords;
 
@@ -104,8 +126,62 @@ public class ResultController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Initialize the initial set of words when the controller is created
-        
-    }    
-    
+        List<String> wpmData = readDataFromFile("src\\main\\java\\com\\example\\words_per_minute.txt");
+        List<String> accData = readDataFromFile("src\\main\\java\\com\\example\\accuracy.txt");
+
+        // Initialize the LineChart with the read data
+        XYChart.Series<String,Number> wpmseries = new XYChart.Series();
+        wpmseries.setName("WPM");
+        XYChart.Series<String,Number> accseries = new XYChart.Series();
+        accseries.setName("Accuracy");
+
+        for (int i = 0; i < wpmData.size(); i++) {
+            // Assuming the x-axis represents time (1 second intervals)
+            wpmseries.getData().add(new XYChart.Data(Integer.toString(i + 1), Integer.parseInt(wpmData.get(i))));
+        }
+        for (int i = 0; i < accData.size(); i++) {
+            accseries.getData().add(new XYChart.Data(Integer.toString(i + 1), Integer.parseInt(accData.get(i))));
+        }
+
+        wpmGraph.getData().addAll(wpmseries);
+        accuracyGraph.getData().addAll(accseries);
+
+        for (XYChart.Series<String,Number> s : wpmGraph.getData()) {
+            for (XYChart.Data<String,Number> d : s.getData()) {
+                Tooltip.install(d.getNode(), new Tooltip(
+                        d.getXValue().toString() + "\n" +
+                                "WPM : " + d.getYValue()));
+
+                //Adding class on hover
+                d.getNode().setOnMouseEntered(event -> d.getNode().getStyleClass().add("onHover"));
+
+                //Removing class on exit
+                d.getNode().setOnMouseExited(event -> d.getNode().getStyleClass().remove("onHover"));
+            }
+        }
+
+        for (XYChart.Series<String,Number> s : accuracyGraph.getData()) {
+            for (XYChart.Data<String,Number> d : s.getData()) {
+                Tooltip.install(d.getNode(), new Tooltip(
+                        d.getXValue().toString() + "\n" +
+                                "Accuracy : " + d.getYValue()));
+
+                //Adding class on hover
+                d.getNode().setOnMouseEntered(event -> d.getNode().getStyleClass().add("onHover"));
+
+                //Removing class on exit
+                d.getNode().setOnMouseExited(event -> d.getNode().getStyleClass().remove("onHover"));
+            }
+        }
+    }  
+      
+    private List<String> readDataFromFile(String fileName) {
+        try {
+            // Read all lines from the file
+            return Files.readAllLines(Paths.get(fileName));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return List.of(); // Return an empty list if there's an error reading the file
+        }
+    }
 }
