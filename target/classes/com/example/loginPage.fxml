@@ -63,7 +63,7 @@
                <font>
                   <Font name="System Bold" size="20.0" />
                </font></Button>
-            <Label fx:id="wrongLogin" layoutX="197.0" layoutY="289.0" prefHeight="48.0" prefWidth="222.0" textFill="RED">
+            <Label fx:id="wrongLogin" layoutX="224.0" layoutY="296.0" prefHeight="48.0" prefWidth="222.0" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font size="15.0" />
                </font></Label>
@@ -72,7 +72,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Button>
-            <Button fx:id="signUp" layoutX="225.0" layoutY="729.0" mnemonicParsing="false" onAction="#switchToSignUp" prefHeight="43.0" prefWidth="154.0" style="-fx-background-color: #808080;" text="Sign Up now!" wrapText="true">
+            <Button fx:id="signUpNow" layoutX="225.0" layoutY="729.0" mnemonicParsing="false" onAction="#switchToSignUp" prefHeight="43.0" prefWidth="154.0" style="-fx-background-color: #808080;" text="Sign Up now!" wrapText="true">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
