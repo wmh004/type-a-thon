@@ -7,22 +7,28 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #808080;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.afterLoginPageController.java">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #808080;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.afterLoginPageController">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Text layoutX="138.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You've successfully login as:" wrappingWidth="322.39337158203125">
+            <Text layoutX="279.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You've successfully login as:" wrappingWidth="1067.1932983398438">
                <font>
-                  <Font name="Consolas Italic" size="20.0" />
+                  <Font name="Consolas Italic" size="64.0" />
                </font>
             </Text>
-            <Label layoutX="160.0" layoutY="175.0" prefHeight="49.0" prefWidth="277.0">
+            <Label fx:id="usernameDisplay" layoutX="675.0" layoutY="332.0" prefHeight="146.0" prefWidth="451.0" text="Label" textAlignment="CENTER">
                <font>
-                  <Font name="System Bold Italic" size="25.0" />
+                  <Font name="System Bold Italic" size="60.0" />
                </font>
             </Label>
-            <Button fx:id="logOut" layoutX="273.0" layoutY="279.0" mnemonicParsing="false" text="Log out" />
-            <Button fx:id="back" layoutX="281.0" layoutY="313.0" mnemonicParsing="false" onAction="#switchToMainPage" text="Back" />
+            <Button fx:id="logOut" layoutX="729.0" layoutY="558.0" mnemonicParsing="false" text="Log out">
+               <font>
+                  <Font size="25.0" />
+               </font></Button>
+            <Button fx:id="back" layoutX="738.0" layoutY="623.0" mnemonicParsing="false" onAction="#switchToMainPage" prefHeight="34.0" prefWidth="102.0" text="Back">
+               <font>
+                  <Font size="25.0" />
+               </font></Button>
          </children>
       </AnchorPane>
    </center>
