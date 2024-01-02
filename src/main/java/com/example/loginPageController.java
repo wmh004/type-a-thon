@@ -7,7 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-import java.io.IOException;
+import java.io.*;
+import java.util.*;
 
 public class loginPageController 
 {
@@ -24,6 +25,47 @@ public class loginPageController
     @FXML
     private Button signUp;
 
+    public void checkLogin(ActionEvent event) throws IOException
+    {
+        
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\ASUS\\Documents\\VCS\\type-a-thon-edit\\src\\main\\java\\playersProfile.txt"))) {
+            String line;
+            boolean userFound = false;
+
+            while ((line = reader.readLine()) != null) {
+                String[] credentials = line.split(",");
+                if (credentials.length == 12 && credentials[0].equals(username.getText()) && credentials[1].equals(password.getText())) {
+                    userFound = true;
+                    
+                    wrongLogin.setText("Login Success!");
+
+                    App m = new App();
+                    m.changeScene("afterLogin.fxml");
+
+                    break;
+                }
+            }
+
+            if (username.getText().trim().isEmpty() || password.getText().trim().isEmpty()) 
+            {
+                wrongLogin.setText("Please enter your data!");
+            }
+
+            if (!userFound) 
+            {
+                wrongLogin.setText("Wrong username or password!");
+            }
+        } 
+        
+        catch (IOException e) 
+        {
+            System.err.println("Error reading user credentials file.");
+            e.printStackTrace();
+        }
+    }
+
+
     public void switchToMainPage(ActionEvent event) throws IOException {
         App a = new App();
         a.changeScene("mainpage.fxml");
@@ -34,4 +76,7 @@ public class loginPageController
         a.changeScene("signUpPage.fxml");
     }
     
+
+
+
 }

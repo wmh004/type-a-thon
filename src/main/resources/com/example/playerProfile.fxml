@@ -41,7 +41,7 @@
       </AnchorPane>
    </bottom>
    <center>
-      <AnchorPane prefHeight="494.0" prefWidth="1600.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="494.0" prefWidth="1527.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
             <Text layoutX="207.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="15 seconds" textAlignment="CENTER" wrappingWidth="116.13747024536133">
                <font>
