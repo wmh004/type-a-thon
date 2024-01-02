@@ -70,7 +70,7 @@ public class loginPageController
             Parent root = loader.load();
 
             MainPageController mainPageController = loader.getController();
-            mainPageController.displayUsername(username.getText());
+            mainPageController.displayCurrentUser(username.getText());
 
             Stage stage = (Stage) loginButton.getScene().getWindow();
             Scene scene = new Scene(root);  

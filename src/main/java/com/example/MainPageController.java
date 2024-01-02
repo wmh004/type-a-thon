@@ -57,6 +57,8 @@ public class MainPageController implements Initializable{
     @FXML
     private Label elapsedTimeLabel;
     @FXML
+    private Label displayCurrentUser;
+    @FXML
     private Button quotesButton;
     @FXML
     private Button exit;
@@ -725,7 +727,7 @@ public class MainPageController implements Initializable{
         a.changeScene("leaderboard.fxml");
     }
 
-    public void displayUsername(String username) {
-        login.setText(username); 
+    public void displayCurrentUser(String username) {
+        displayCurrentUser.setText(username); 
     }
 }
