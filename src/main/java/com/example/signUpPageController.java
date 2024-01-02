@@ -2,14 +2,17 @@ package com.example;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
 
 import java.io.*;
 public class signUpPageController 
@@ -25,12 +28,21 @@ public class signUpPageController
 
     public void checkSignUp() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\ASUS\\Documents\\VCS\\type-a-thon-edit\\src\\main\\java\\playersProfile.txt", true))) {
-            writer.write(username.getText() + "," + password.getText() + ",0,0,0,0,0,0,0,0,0,0,0");
+            writer.write(username.getText() + "," + password.getText() + ",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,");
             writer.newLine();
-            System.out.println("Sign up successful!");
-    
-            App m = new App();
-            m.changeScene("afterLogin.fxml");
+            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("afterLoginPage.fxml"));
+                Parent root = loader.load();
+
+                afterLoginPageController controller = loader.getController();
+                controller.displayUsername(username.getText());
+
+                Stage stage = (Stage) signUp.getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+
+            
         }
 
         catch (IOException e) {
