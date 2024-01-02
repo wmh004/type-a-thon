@@ -51,17 +51,17 @@
                   <Font name="System Bold" size="30.0" />
                </font>
             </Label>
-            <TextField layoutX="139.0" layoutY="435.0" prefHeight="60.0" prefWidth="329.0" promptText="Enter your Matrics No." style="-fx-background-color: #FFFFFF;">
+            <TextField fx:id="username" layoutX="139.0" layoutY="435.0" prefHeight="60.0" prefWidth="329.0" promptText="Enter your Matrics No." style="-fx-background-color: #FFFFFF;">
                <font>
                   <Font size="20.0" />
                </font>
             </TextField>
-            <PasswordField layoutX="139.0" layoutY="571.0" prefHeight="60.0" prefWidth="329.0" promptText="Enter your password" style="-fx-background-color: #FFFFFF;">
+            <PasswordField fx:id="password" layoutX="139.0" layoutY="571.0" prefHeight="60.0" prefWidth="329.0" promptText="Enter your password" style="-fx-background-color: #FFFFFF;">
                <font>
                   <Font size="20.0" />
                </font>
             </PasswordField>
-            <Button fx:id="signUp" layoutX="214.0" layoutY="667.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="178.0" style="-fx-background-color: #808080;" text="Sign Up" wrapText="true">
+            <Button fx:id="signUp" layoutX="214.0" layoutY="667.0" mnemonicParsing="false" onAction="#checkSignUp" prefHeight="52.0" prefWidth="178.0" style="-fx-background-color: #808080;" text="Sign Up" wrapText="true">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
