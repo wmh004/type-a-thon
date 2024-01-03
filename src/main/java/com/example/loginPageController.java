@@ -30,59 +30,55 @@ public class loginPageController
 
 
     public void checkLogin(ActionEvent event) throws IOException {
-    try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\ASUS\\Documents\\VCS\\type-a-thon-edit\\src\\main\\java\\playersProfile.txt"))) {
-        String line;
-        boolean userFound = false;
-
-        while ((line = reader.readLine()) != null) {
-            String[] credentials = line.split(",");
-            if (credentials[0].equals(username.getText()) && credentials[1].equals(password.getText())) {
-                userFound = true;
-                wrongLogin.setText("Login Success!");
-
-                loginButton.setText(username.getText());
-
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("afterLoginPage.fxml"));
-                Parent root = loader.load();
-
-                afterLoginPageController controller2 = loader.getController();
-                controller2.displayUsername(username.getText());
-
-                Stage stage = (Stage) loginButton.getScene().getWindow();
-                Scene scene = new Scene(root);  
-                stage.setScene(scene);
-                stage.show();
-
-                break;
-            }
-        }
-
+        File profilesDirectory = new File("C:\\Users\\ASUS\\Documents\\VCS\\type-a-thon-edit\\src\\main\\java\\");
+        
         if (username.getText().trim().isEmpty() || password.getText().trim().isEmpty()) {
             wrongLogin.setText("Please enter your data!");
-        } 
-        else if (!userFound) {
+            return;
+        }
+    
+        boolean userFound = false;
+    
+        for (File file : profilesDirectory.listFiles()) {
+            if (file.isFile() && file.getName().endsWith("Profile.txt")) {
+                // Check user credentials in each file
+                try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                    String line;
+                    
+                    while ((line = reader.readLine()) != null) {
+                        String[] credentials = line.split(",");
+                        
+                        if (credentials.length >= 2 && credentials[0].equals(username.getText()) && credentials[1].equals(password.getText())) {
+                            // User found, perform login
+                            userFound = true;
+                            wrongLogin.setText("Login Success!");
+    
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("afterLoginPage.fxml"));
+                            Parent root = loader.load();
+    
+                            afterLoginPageController controller2 = loader.getController();
+                            controller2.displayUsername(username.getText());
+    
+                            Stage stage = (Stage) loginButton.getScene().getWindow();
+                            Scene scene = new Scene(root);
+                            stage.setScene(scene);
+                            stage.show();
+    
+                            break;
+                        }
+                    }
+                } catch (IOException e) {
+                    System.err.println("Error reading user credentials file: " + file.getName());
+                    e.printStackTrace();
+                }
+            }
+        }
+    
+        if (!userFound) {
             wrongLogin.setText("Wrong username or password!");
         }
-        
-        if(userFound)
-        {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("mainpage.fxml"));
-            Parent root = loader.load();
-
-            MainPageController mainPageController = loader.getController();
-            mainPageController.displayCurrentUser(username.getText());
-
-            Stage stage = (Stage) loginButton.getScene().getWindow();
-            Scene scene = new Scene(root);  
-            stage.setScene(scene);
-            stage.show();
-        }
-
-    } catch (IOException e) {
-        System.err.println("Error reading user credentials file.");
-        e.printStackTrace();
     }
-}
+    
 
 
     public void switchToAfterLogin(ActionEvent event) throws IOException {
