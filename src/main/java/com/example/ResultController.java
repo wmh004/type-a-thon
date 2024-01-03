@@ -22,7 +22,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-
 public class ResultController implements Initializable {
 
     @FXML Label speed; //USE LABELS INSTEAD OF TEXTFIELD BECAUSE LABELS ARE READ ONLY TEXT
@@ -32,6 +31,9 @@ public class ResultController implements Initializable {
 
     @FXML
     private Label timeSpent;
+
+    @FXML
+    private Label Errors;
 
     @FXML
     private Button playRandom;
@@ -91,6 +93,8 @@ public class ResultController implements Initializable {
         speed.setText(String.format("%.2f", wpm));
         accuracy.setText(String.format("%.1f", acc));
         timeSpent.setText(String.format("%d:%02d", secondsRemaining / 60, secondsRemaining % 60));
+        Errors.setText(String.valueOf(errorCount));
+
         this.secondsRemaining = secondsRemaining;
     }
 
@@ -122,7 +126,6 @@ public class ResultController implements Initializable {
             ex.printStackTrace();
         }
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
