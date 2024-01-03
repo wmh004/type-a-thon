@@ -40,14 +40,16 @@ public class loginPageController
                 userFound = true;
                 wrongLogin.setText("Login Success!");
 
+                loginButton.setText(username.getText());
+
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("afterLoginPage.fxml"));
                 Parent root = loader.load();
 
-                afterLoginPageController controller = loader.getController();
-                controller.displayUsername(username.getText());
+                afterLoginPageController controller2 = loader.getController();
+                controller2.displayUsername(username.getText());
 
                 Stage stage = (Stage) loginButton.getScene().getWindow();
-                Scene scene = new Scene(root);
+                Scene scene = new Scene(root);  
                 stage.setScene(scene);
                 stage.show();
 
@@ -57,9 +59,25 @@ public class loginPageController
 
         if (username.getText().trim().isEmpty() || password.getText().trim().isEmpty()) {
             wrongLogin.setText("Please enter your data!");
-        } else if (!userFound) {
+        } 
+        else if (!userFound) {
             wrongLogin.setText("Wrong username or password!");
         }
+        
+        if(userFound)
+        {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("mainpage.fxml"));
+            Parent root = loader.load();
+
+            MainPageController mainPageController = loader.getController();
+            mainPageController.displayCurrentUser(username.getText());
+
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            Scene scene = new Scene(root);  
+            stage.setScene(scene);
+            stage.show();
+        }
+
     } catch (IOException e) {
         System.err.println("Error reading user credentials file.");
         e.printStackTrace();

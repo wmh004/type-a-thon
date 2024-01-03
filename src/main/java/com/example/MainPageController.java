@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -24,14 +25,16 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 public class MainPageController implements Initializable{
@@ -41,10 +44,10 @@ public class MainPageController implements Initializable{
     private Button resultButton;
     @FXML
     private TextArea textDisplay;
-    @FXML 
-    private Button punctuationButton;
     @FXML
-    private Button numbersButton;
+    private MenuItem numbersButton;
+    @FXML
+    private MenuItem punctuationButton;
     @FXML
     private ChoiceBox<Integer> timerChoiceBox;
     @FXML
@@ -53,6 +56,8 @@ public class MainPageController implements Initializable{
     private Button stopwatchButton;
     @FXML
     private Label elapsedTimeLabel;
+    @FXML
+    private Label displayCurrentUser;
     @FXML
     private Button quotesButton;
     @FXML
@@ -65,6 +70,8 @@ public class MainPageController implements Initializable{
     private Button login;
     @FXML
     private Button leaderboard;
+    @FXML
+    private MenuItem quotesMode;
 
     private Stage stage;
 
@@ -84,6 +91,10 @@ public class MainPageController implements Initializable{
 
     private List<String> currentWords;
 
+    private BufferedWriter wpmWriter;
+
+    private BufferedWriter accuracyWriter;
+
     private int elapsedMins = 0;
     private int elapsedSecs = 0;
 
@@ -96,6 +107,15 @@ public class MainPageController implements Initializable{
     int mins = 1, secs = 0;
 
     boolean timerStarted = false;
+
+    public MainPageController() {
+        try {
+            wpmWriter = new BufferedWriter(new FileWriter(new File("src\\main\\java\\com\\example\\words_per_minute.txt")));
+            accuracyWriter = new BufferedWriter(new FileWriter(new File("src\\main\\java\\com\\example\\accuracy.txt")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     void loadTest() {
@@ -578,9 +598,36 @@ public class MainPageController implements Initializable{
             elapsedSecs = 0;
         }
         updateElapsedTimeLabel();
-    
+        // Calculate words per minute and write to file
+        int totalWords = totalChar / 5;
+        int wpm = (int) Math.round((double) totalWords / (double) ((elapsedMins * 60) + elapsedSecs / 60.0));
+        double acc = (double) (totalWords - errorCount) / totalWords * 100;
+        writeAccToFile(acc);
+        writeWPMToFile(wpm);
         // Print statement to check elapsed time changes
         System.out.println("Elapsed Time: " + elapsedMins + ":" + elapsedSecs);
+    }
+
+    private void writeAccToFile(double acc){
+        try {
+            // Write the words per minute to the file
+            accuracyWriter.write(Integer.toString((int)acc));
+            accuracyWriter.newLine();
+            accuracyWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void writeWPMToFile(int wpm) {
+        try {
+            // Write the words per minute to the file
+            wpmWriter.write(Integer.toString(wpm));
+            wpmWriter.newLine();
+            wpmWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     void startTimer() {
@@ -596,6 +643,13 @@ public class MainPageController implements Initializable{
     void stopTimer() {
         //timeline.pause();
         timeline.stop();
+        try {
+            // Close the FileWriter for words per minute
+            wpmWriter.close();
+            accuracyWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     void updateTimeLabel() {
@@ -671,5 +725,9 @@ public class MainPageController implements Initializable{
     public void switchToLeaderboard(ActionEvent event) throws IOException {
         App a = new App();
         a.changeScene("leaderboard.fxml");
+    }
+
+    public void displayCurrentUser(String username) {
+        displayCurrentUser.setText(username); 
     }
 }

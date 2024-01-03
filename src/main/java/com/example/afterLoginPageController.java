@@ -19,6 +19,7 @@ public class afterLoginPageController
     public void displayUsername(String username) {
         usernameDisplay.setText(username);
     }
+    
     public void switchToMainPage(ActionEvent event) throws IOException {
         App a = new App();
         a.changeScene("mainpage.fxml");
