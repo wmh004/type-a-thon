@@ -6,8 +6,6 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -112,12 +110,12 @@
                   <Button fx:id="resultButton" layoutX="648.0" layoutY="18.0" mnemonicParsing="false" onAction="#switchSceneToResult" onKeyPressed="#switchSceneToResult" text="Results" />
                </children>
             </AnchorPane>
-            <Button fx:id="refresh" layoutX="41.0" layoutY="624.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="128.0" text="Refresh">
+            <Button fx:id="refresh" layoutX="41.0" layoutY="624.0" mnemonicParsing="false" onAction="#refresh" prefHeight="48.0" prefWidth="128.0" text="Refresh">
                <font>
                   <Font name="Consolas Bold" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="exit" layoutX="1155.0" layoutY="624.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="128.0" text="Exit">
+            <Button fx:id="exit" layoutX="1155.0" layoutY="624.0" mnemonicParsing="false" onAction="#quit" prefHeight="48.0" prefWidth="128.0" text="Exit">
                <font>
                   <Font name="Consolas Bold" size="19.0" />
                </font>
