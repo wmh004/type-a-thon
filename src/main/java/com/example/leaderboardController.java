@@ -110,8 +110,8 @@ public class leaderboardController {
 
         @Override
         public String toString() {
-            return String.format("%-30s %-5d %-10s %-10s %-10s", 
-                                username, score, index4, index5, index6);
+            return String.format("%-35s %-10d %-1s %-40s %-10s %-1s %-10s",
+                    username, score, index4, "%", index5, index6, "%");
         }
     }
 

@@ -30,32 +30,38 @@ public class signUpPageController
     private Label wrongLogin;
 
     public void checkSignUp() {
-        if (username.getText().trim().isEmpty() || password.getText().trim().isEmpty()) {
-            wrongLogin.setText("Please enter your data!");
+        String enteredUsername = username.getText().trim();
+        String enteredPassword = password.getText().trim();
+    
+        if (enteredUsername.isEmpty() || enteredPassword.isEmpty()) {
+            wrongLogin.setText("Please enter both username and password");
+        } else if (enteredUsername.length() != 8 || !enteredUsername.matches("\\d+")) {
+            wrongLogin.setText("Enter a valid 8-digit numeric username");
         } else {
-            String userFilename = "C:\\Users\\ASUS\\Documents\\VCS\\type-a-thon-edit\\src\\main\\java\\" + username.getText() + "Profile.txt";
+            String userFilename = "C:\\Users\\ASUS\\Documents\\VCS\\type-a-thon-edit\\src\\main\\java\\" + enteredUsername + "Profile.txt";
     
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(userFilename, true))) {
-                writer.write(username.getText() + "," + password.getText() + ",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,");
+                writer.write(enteredUsername + "," + enteredPassword + ",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,");
                 writer.newLine();
     
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("afterLoginPage.fxml"));
                 Parent root = loader.load();
     
                 afterLoginPageController controller = loader.getController();
-                controller.displayUsername(username.getText());
+                controller.displayUsername(enteredUsername);
     
                 Stage stage = (Stage) signUp.getScene().getWindow();
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
-    
             } catch (IOException e) {
                 System.err.println("Error writing to user credentials file.");
                 e.printStackTrace();
             }
         }
     }
+    
+    
     
     public void switchToLoginPage(ActionEvent event) throws IOException {
         App a = new App();
