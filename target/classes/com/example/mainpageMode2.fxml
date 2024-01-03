@@ -7,15 +7,13 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #36454F;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.MainPageController">
+<BorderPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #36454F;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mainpageMode2controller">
    <left>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
    </left>
@@ -34,24 +32,17 @@
                </font>
             </Label>
             <Button layoutX="454.0" layoutY="31.0" mnemonicParsing="false" text="TIMED" />
-            <Button fx:id="wordButton" layoutX="454.0" layoutY="64.0" mnemonicParsing="false" onAction="#switchSceneToWordMode" text="WORDS" />
+            <Button layoutX="454.0" layoutY="64.0" mnemonicParsing="false" text="WORDS" />
             <Button fx:id="quotesButton" layoutX="454.0" layoutY="98.0" mnemonicParsing="false" onAction="#replaceTextWithQuotes" text="QUOTES" />
             <Button fx:id="punctuationButton" layoutX="707.0" layoutY="98.0" mnemonicParsing="false" onAction="#replaceTextWithPunctuation" text="PUNCTUATION" />
             <Button fx:id="numbersButton" layoutX="730.0" layoutY="64.0" mnemonicParsing="false" onAction="#replaceTextWithNumbers" text="NUMBERS" />
             <ChoiceBox fx:id="timerChoiceBox" layoutX="525.0" layoutY="31.0" prefHeight="26.0" prefWidth="81.0" />
-            <ChoiceBox fx:id="wordChoiceBox" layoutX="525.0" layoutY="64.0" prefHeight="26.0" prefWidth="82.0" visible="false" />
-            <Button fx:id="stopwatchButton" layoutX="918.0" layoutY="31.0" mnemonicParsing="false" onAction="#toggleStopwatch" text="Start" visible="false" />
-            <Label fx:id="elapsedTimeLabel" alignment="CENTER" layoutX="891.0" layoutY="69.0" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: white;" visible="false">
+            <ChoiceBox fx:id="wordChoiceBox" layoutX="525.0" layoutY="64.0" prefHeight="26.0" prefWidth="82.0" />
+            <Label fx:id="timeLabel" alignment="CENTER" layoutX="911.0" layoutY="62.0" prefHeight="41.0" prefWidth="94.0" visible="false">
                <font>
-                  <Font name="Wormbox" size="20.0" />
+                  <Font name="Consolas Bold" size="26.0" />
                </font>
             </Label>
-            <Button layoutX="1128.0" layoutY="75.0" mnemonicParsing="false" text="Results" />
-            <ImageView fitHeight="104.0" fitWidth="146.0" layoutX="883.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../../../../Downloads/nah_id_win.png" />
-               </image>
-            </ImageView>
          </children>
       </AnchorPane>
    </top>
@@ -87,14 +78,9 @@
                   </MenuButton>
                   <AnchorPane layoutX="528.0" layoutY="11.0" prefHeight="40.0" prefWidth="91.0" style="-fx-background-color: #FFFFFF;">
                      <children>
-                        <Label alignment="CENTER" prefHeight="41.0" prefWidth="94.0">
+                        <Label fx:id="elapsedTimeLabel" alignment="CENTER" layoutY="-1.0" prefHeight="46.0" prefWidth="94.0">
                            <font>
                               <Font name="Consolas Bold" size="26.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="timeLabel" alignment="CENTER" layoutX="-1.0" prefHeight="41.0" prefWidth="94.0" textFill="#ff0101">
-                           <font>
-                              <Font name="Wormbox" size="20.0" />
                            </font>
                         </Label>
                      </children>
@@ -116,7 +102,8 @@
                   <Font name="Consolas Bold" size="19.0" />
                </font>
             </Button>
-            <Button fx:id="SDbutton" layoutX="102.0" layoutY="29.0" mnemonicParsing="false" onAction="#SUDDENDEATHMODE" text="SUDDEN DEATH" />
+            <Button fx:id="stopwatchButton" layoutX="798.0" layoutY="-13.0" mnemonicParsing="false" onAction="#toggleStopwatch" text="Start" />
+            <Button fx:id="SDbutton" layoutX="80.0" layoutY="32.0" mnemonicParsing="false" onAction="#SUDDENDEATHMODE" text="SUDDEN DEATH" />
          </children>
       </AnchorPane>
    </center>

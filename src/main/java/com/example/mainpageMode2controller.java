@@ -1,6 +1,5 @@
 package com.example;
 
-//import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -37,7 +36,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-public class MainPageController implements Initializable {
+public class mainpageMode2controller implements Initializable {
 
     @FXML
     private Label timeLabel;
@@ -70,9 +69,6 @@ public class MainPageController implements Initializable {
     private Button quotesButton;
 
     @FXML
-    private Button wordButton;
-
-    @FXML
     private Button SDbutton;
 
 
@@ -92,10 +88,8 @@ public class MainPageController implements Initializable {
 
     private List<String> currentWords;
 
-
     List<String> quotesListFiles = Arrays.asList("src\\main\\java\\com\\example\\quotesList.txt", "src\\main\\java\\com\\example\\quotes2List.txt", "src\\main\\java\\com\\example\\quotes3List.txt");
     List<String> quotesList = new ArrayList<>();
-    
 
     private int elapsedMins = 0;
     private int elapsedSecs = 0;
@@ -113,7 +107,6 @@ public class MainPageController implements Initializable {
 
     boolean timerStarted = false;
 
-    
     @FXML
     void loadTest() {
         int wordsToDisplay = wordChoiceBox.getValue();
@@ -146,7 +139,6 @@ public class MainPageController implements Initializable {
         textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
         textDisplay.selectRange(indexOfLine, indexOfLine + 1); // highlighting the first character
 
-        // Declare a final array to hold the boolean value
         textDisplay.setOnKeyTyped(new EventHandler<KeyEvent>() {
             private boolean withinWord = false;
             private boolean spacePressed = false;
@@ -203,12 +195,10 @@ public class MainPageController implements Initializable {
                 }
             }
         });
-    textDisplay.setEditable(false);
-    enteredWords = List.of(textDisplay.getText().split("\\s+"));
-}
 
-    
-
+        textDisplay.setEditable(false);
+        enteredWords = List.of(textDisplay.getText().split("\\s+"));
+    }
 
     @FXML
     void replaceTextWithPunctuation() {
@@ -232,7 +222,7 @@ public class MainPageController implements Initializable {
         totalChar = 0;
         textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
         textDisplay.selectRange(indexOfLine, indexOfLine + 1); //highlighting the first character 
-            textDisplay.setOnKeyTyped(new EventHandler<KeyEvent>() {
+        textDisplay.setOnKeyTyped(new EventHandler<KeyEvent>() {
             private boolean withinWord = false;
             private boolean spacePressed = false;
 
@@ -283,14 +273,13 @@ public class MainPageController implements Initializable {
                         stopTimer();
                         withinWord = false; // Mark the current word as completed
                         spacePressed = false; // Reset the spacePressed flag
-                        switchSceneToResult();
                     }
                 }
             }
         });
-    
-        textDisplay.setEditable(false);
-        enteredWords = List.of(textDisplay.getText().split("\\s+"));
+
+                textDisplay.setEditable(false); 
+                enteredWords = List.of(textDisplay.getText().split("\\s+"));
     }
 
     @FXML
@@ -314,7 +303,7 @@ public class MainPageController implements Initializable {
         totalChar = 0;
         textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
         textDisplay.selectRange(indexOfLine, indexOfLine + 1); //highlighting the first character 
-                textDisplay.setOnKeyTyped(new EventHandler<KeyEvent>() {
+        textDisplay.setOnKeyTyped(new EventHandler<KeyEvent>() {
             private boolean withinWord = false;
             private boolean spacePressed = false;
 
@@ -365,12 +354,10 @@ public class MainPageController implements Initializable {
                         stopTimer();
                         withinWord = false; // Mark the current word as completed
                         spacePressed = false; // Reset the spacePressed flag
-                        switchSceneToResult();
                     }
                 }
             }
         });
-
                 textDisplay.setEditable(false); 
                 enteredWords = List.of(textDisplay.getText().split("\\s+"));
     }
@@ -447,7 +434,6 @@ public class MainPageController implements Initializable {
                         stopTimer();
                         withinWord = false; // Mark the current word as completed
                         spacePressed = false; // Reset the spacePressed flag
-                        switchSceneToResult();
                     }
                 }
             }
@@ -552,6 +538,7 @@ public class MainPageController implements Initializable {
 
 
 
+
     private String getRandomQuotesListFilePath() {
         if (quotesListFiles.isEmpty()) {
             throw new IllegalArgumentException("quotesListFiles is empty");
@@ -573,8 +560,6 @@ public class MainPageController implements Initializable {
         return quotesList.get(randomIndex);
     }
 
-
-
     public List<String> readFile(String fileName) {
         List<String> lines = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -588,6 +573,7 @@ public class MainPageController implements Initializable {
         return lines;
     }
 
+
     void handleBackspace() {
         if (indexOfLine > 0) {
             indexOfLine--;
@@ -595,6 +581,35 @@ public class MainPageController implements Initializable {
             textDisplay.selectRange(indexOfLine, indexOfLine + 1);
         }
     }
+
+    //This part isnt functioning yet
+    /*void validateWord() {
+        // Extract the entire word from the textDisplay
+        String word = textDisplay.getText().substring(0, indexOfLine).trim();
+    
+        // Split arr to get an array of words
+        String[] words = arr.split("\\s+");
+    
+        if (indexOfLine < words.length) {
+            // Check if the entire word is correct
+            if (word.equals(words[indexOfLine])) {
+                // Turn the entire word green
+                textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: green;");
+            } else {
+                // Turn the entire word red
+                textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: red;");
+            }
+    
+            indexOfLine++;
+            textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+        } else {
+            // Allow typing beyond the last index
+            textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
+            indexOfLine++;
+            textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+        }
+    }*/
+    
 
     void change() {
         // Countdown logic
@@ -812,10 +827,9 @@ public class MainPageController implements Initializable {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
-    
 
     void stopTimer() {
-        //timeline.pause(); use this is mainpageMode2controller
+        //timeline.pause();
         timeline.stop();
     }
 
@@ -863,23 +877,5 @@ public class MainPageController implements Initializable {
             ex.printStackTrace();
         }
     }
-    
-
-    @FXML
-    void switchSceneToWordMode(ActionEvent event) {
-        
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("mainpageMode2.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            
-            Stage theStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            theStage.setScene(scene);
-            theStage.show();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        
-    }
 }
+
