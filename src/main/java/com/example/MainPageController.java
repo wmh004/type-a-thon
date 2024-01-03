@@ -96,7 +96,7 @@ public class MainPageController implements Initializable {
     private Button leaderboard;
 
     @FXML
-    private Button quotesMode;
+    private MenuItem quotesMode;
 
     private Stage stage;
 
@@ -493,6 +493,109 @@ public class MainPageController implements Initializable {
         enteredWords = List.of(textDisplay.getText().split("\\s+"));
     }
 
+    @FXML
+    void SUDDENDEATHMODE() {
+        int wordsToDisplay = wordChoiceBox.getValue();
+
+        List<String> wordList = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("wordsList.txt")))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                wordList.add(line.trim());
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        // Shuffle the wordList to create a random arrangement
+        Collections.shuffle(wordList);
+
+        wordList = wordList.subList(0, Math.min(wordList.size(), wordsToDisplay));
+
+        // Concatenate the selected words to form the text
+        arr = String.join(" ", wordList);
+
+        textDisplay.setText(arr);
+
+        textDisplay.requestFocus();
+        errorCount = 0;
+        indexOfLine = 0;
+        totalChar = 0;
+
+        textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
+        textDisplay.selectRange(indexOfLine, indexOfLine + 1); // highlighting the first character
+
+        // Declare a final array to hold the boolean value
+        textDisplay.setOnKeyTyped(new EventHandler<KeyEvent>() {
+            private boolean withinWord = false;
+            private boolean spacePressed = false;
+
+            @Override
+            public void handle(KeyEvent event) {
+                if (!timerStarted) {
+                    startTimer();
+                    timerStarted = true;
+                }
+
+                if (event.getCharacter().equals(" ")) {
+                    // Handle space character
+                    withinWord = false; // Mark current word as completed
+                    spacePressed = true; // Mark space as pressed
+                    textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
+                    indexOfLine++;
+                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+                } else if (event.getCharacter().equals("\b")) {
+                    // Ignore backspace when space is pressed and word is completed
+                    if (!spacePressed && indexOfLine > 0) {
+                        // Only allow backspace within a word
+                        indexOfLine--;
+                        textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+                    }
+                } else {
+                    // Update the character count when a non-space character is typed
+                    totalChar++;
+
+                    if (indexOfLine < arr.length()) {
+                        expectedKey = arr.charAt(indexOfLine);
+                        typedKey = event.getCharacter().charAt(0);
+
+                        if (typedKey != expectedKey) {
+                            errorCount++;
+                            stopTimer(); // Stop the timer on the first mistake
+                            switchSceneToResult();
+                        } else {
+                            textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: green;");
+                        }
+
+                        indexOfLine++;
+                        withinWord = true; // Mark that we are still within a word
+                        spacePressed = false; // Reset the spacePressed flag
+                    }
+
+                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+
+                    if (indexOfLine == arr.length()) {
+                        stopTimer();
+                        withinWord = false; // Mark the current word as completed
+                        spacePressed = false; // Reset the spacePressed flag
+                    }
+                }
+            }
+        });
+    textDisplay.setEditable(false);
+    enteredWords = List.of(textDisplay.getText().split("\\s+"));
+}
+
+    private String getRandomQuotesListFilePath() {
+        if (quotesListFiles.isEmpty()) {
+            throw new IllegalArgumentException("quotesListFiles is empty");
+        }
+    
+        Random random = new Random();
+        int randomIndex = random.nextInt(quotesListFiles.size());
+        return quotesListFiles.get(randomIndex);
+    }
+
     public List<String> readFile(String fileName) {
         List<String> lines = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -504,6 +607,31 @@ public class MainPageController implements Initializable {
             e.printStackTrace();
         }
         return lines;
+    }
+
+    void handleBackspace(){
+        if(indexOfLine > 0){
+            indexOfLine--;
+            textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3");
+            textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+        }
+    }
+
+    void validateWord(){
+        String word = textDisplay.getText().substring(0,indexOfLine).trim();
+
+        //Check if the entire word is correct
+        if(word.equals(arr.split(" ")[indexOfLine])){
+            //Turn the entire word green
+            textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: green;");
+            //correctWords++;
+        } else{
+            //Turn the entire word red
+            textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: red;");
+        }
+
+        indexOfLine++;
+        textDisplay.selectRange(indexOfLine, indexOfLine + 1);
     }
 
     void change() {
@@ -791,6 +919,7 @@ public class MainPageController implements Initializable {
         } );
     }
 
+    @FXML
     void switchSceneToResult() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -829,6 +958,11 @@ public class MainPageController implements Initializable {
             ex.printStackTrace();
         }
         
+    }
+
+    public void switchToLogin(ActionEvent event) throws IOException{
+        App a = new App();
+        a.changeScene("loginPage.fxml");
     }
 
     public void switchToLeaderboard(ActionEvent event) throws IOException {
