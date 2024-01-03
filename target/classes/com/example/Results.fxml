@@ -1,35 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ResultController">
+<AnchorPane fx:id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #5A5A5A;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ResultController">
    <children>
-      <Pane layoutX="141.0" layoutY="38.0" prefHeight="253.0" prefWidth="420.0" style="-fx-background-color: white;" />
-      <VBox layoutX="14.0" layoutY="193.0" prefHeight="98.0" prefWidth="103.0" style="-fx-background-color: black;">
+      <Pane layoutX="198.0" layoutY="93.0" prefHeight="604.0" prefWidth="1140.0" style="-fx-background-color: white;">
          <children>
-            <Label fx:id="accuracy" alignment="CENTER" prefHeight="99.0" prefWidth="103.0" textFill="WHITE" />
+            <LineChart fx:id="wpmGraph" prefHeight="311.0" prefWidth="1140.0" title="WPM vs Time">
+              <xAxis>
+                <CategoryAxis label="Time" side="BOTTOM" fx:id="xwpm" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis fx:id="ywpm" label="Words per minute" side="LEFT" />
+              </yAxis>
+            </LineChart>
+            <LineChart fx:id="accuracyGraph" layoutY="304.0" prefHeight="301.0" prefWidth="1140.0" title="Accuracy vs Time">
+              <xAxis>
+                <CategoryAxis label="Time" side="BOTTOM" fx:id="xaccuracy" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis fx:id="yaccuracy" label="Accuracy" side="LEFT" />
+              </yAxis>
+            </LineChart>
+         </children></Pane>
+      <Button fx:id="playAgainRandom" layoutX="711.0" layoutY="741.0" mnemonicParsing="false" onAction="#playAgainRandom" prefHeight="28.0" prefWidth="112.0" text="RESTART">
+         <font>
+            <Font name="Consolas Bold" size="15.0" />
+         </font></Button>
+      <VBox layoutX="12.0" layoutY="199.0" prefHeight="162.0" prefWidth="178.0" style="-fx-background-color: black;">
+         <children>
+            <Label fx:id="speed" alignment="CENTER" prefHeight="152.0" prefWidth="180.0" textFill="WHITE" />
          </children>
       </VBox>
-      <Button fx:id="playAgainRandom" layoutX="314.0" layoutY="315.0" mnemonicParsing="false" onAction="#playAgainRandom" text="DIFFERENT" />
-      <VBox layoutX="14.0" layoutY="38.0" prefHeight="98.0" prefWidth="103.0" style="-fx-background-color: black;">
+      <VBox layoutX="1345.0" layoutY="319.0" prefHeight="152.0" prefWidth="180.0" style="-fx-background-color: black;">
          <children>
-            <Label fx:id="speed" alignment="CENTER" prefHeight="99.0" prefWidth="103.0" textFill="WHITE" />
+            <Label fx:id="timeSpent" alignment="CENTER" prefHeight="165.0" prefWidth="214.0" textFill="WHITE" />
          </children>
       </VBox>
-      <VBox layoutX="588.0" layoutY="38.0" prefHeight="98.0" prefWidth="103.0" style="-fx-background-color: black;">
-         <children>
-            <Label fx:id="timeSpent" alignment="CENTER" prefHeight="99.0" prefWidth="103.0" textFill="WHITE" />
-         </children>
-      </VBox>
-      <Button fx:id="playAgainSame" layoutX="327.0" layoutY="350.0" mnemonicParsing="false" onAction="#playAgainSame" text="SAME" />
+      <Button fx:id="playAgainSame" layoutX="713.0" layoutY="781.0" mnemonicParsing="false" onAction="#playAgainSame" prefHeight="28.0" prefWidth="112.0" text="REPEAT">
+         <font>
+            <Font name="Consolas Bold" size="15.0" />
+         </font></Button>
       <VBox layoutX="588.0" layoutY="192.0" prefHeight="98.0" prefWidth="103.0" style="-fx-background-color: black;">
          <children>
             <Label fx:id="Errors" alignment="CENTER" prefHeight="99.0" prefWidth="103.0" textFill="WHITE" />
          </children>
       </VBox>
+      <Label layoutX="683.0" layoutY="14.0" text="RESULTS">
+         <font>
+            <Font name="Consolas Bold" size="60.0" />
+         </font>
+      </Label>
+      <VBox layoutX="12.0" layoutY="440.0" prefHeight="149.0" prefWidth="178.0" style="-fx-background-color: black;">
+         <children>
+            <Label fx:id="accuracy" alignment="CENTER" prefHeight="152.0" prefWidth="180.0" textFill="WHITE" />
+         </children>
+      </VBox>
+      <Text layoutX="72.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="wpm">
+         <font>
+            <Font name="Consolas" size="35.0" />
+         </font>
+      </Text>
+      <Text layoutX="35.0" layoutY="428.0" strokeType="OUTSIDE" strokeWidth="0.0" text="accuracy">
+         <font>
+            <Font name="Consolas" size="30.0" />
+         </font>
+      </Text>
+      <Text layoutX="1353.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="time spent">
+         <font>
+            <Font name="Consolas" size="30.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

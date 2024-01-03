@@ -1,29 +1,43 @@
 package com.example;
 
+import java.io.IOException;
+
 // App.java
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class App extends Application {
+    private static Stage stg;
+    private static Scene scene;
+    
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        
-        try {
-            //Parent root = FXMLLoader.load(getClass().getResource("mainpage.fxml")); //this line is just the same as the first 2 lines
-            Parent root = FXMLLoader.load(getClass().getResource("mainpage.fxml"));
-            //The initialize() method of the GameController will be automatically called when the MainPage.fxml is loaded via the FXMLLoader
-            primaryStage.setTitle("Type a thon");
-            primaryStage.setScene(new Scene(root, 600, 400));
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace(); // Handle the exception appropriately in a real application
-        }
+    public void start(Stage stage) throws IOException {
+        stg = stage;
+        stage.setResizable(false);
+        Parent root = FXMLLoader.load(getClass().getResource("mainpage.fxml"));
+        stage.setTitle("Type-a-Thon");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/keyboard.png")));
+        scene = new Scene(root, 1600, 900);
+        stage.setFullScreen(true);
+        stage.setScene(scene);
+        stage.show();
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
+    }
+
+    public void changeScene(String fxml) throws IOException {
+        Parent pane = FXMLLoader.load(getClass().getResource(fxml));
+        stg.getScene().setRoot(pane);
     }
 
     public static void main(String[] args) {
         launch(args);
     }
-}
+}   

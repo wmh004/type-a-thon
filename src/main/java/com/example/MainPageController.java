@@ -1,8 +1,8 @@
 package com.example;
 
-//import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,17 +16,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.text.TextFlow;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
-//import java.io.File;
-//import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -48,11 +50,11 @@ public class MainPageController implements Initializable {
     @FXML
     private TextArea textDisplay;
 
-    @FXML 
-    private Button punctuationButton;
+    @FXML
+    private MenuItem numbersButton;
 
     @FXML
-    private Button numbersButton;
+    private MenuItem punctuationButton;
 
     @FXML
     private ChoiceBox<Integer> timerChoiceBox;
@@ -66,6 +68,9 @@ public class MainPageController implements Initializable {
     @FXML
     private Label elapsedTimeLabel;
 
+     @FXML
+    private Label displayCurrentUser;
+
     @FXML
     private Button quotesButton;
 
@@ -75,6 +80,25 @@ public class MainPageController implements Initializable {
     @FXML
     private Button SDbutton;
 
+    @FXML
+    private Button exit;
+
+    @FXML
+    private BorderPane mainPage;
+
+    @FXML
+    private Button refresh;
+
+    @FXML
+    private Button login;
+
+    @FXML
+    private Button leaderboard;
+
+    @FXML
+    private Button quotesMode;
+
+    private Stage stage;
 
     public int errorCount;
 
@@ -91,6 +115,10 @@ public class MainPageController implements Initializable {
     private List<String> enteredWords;
 
     private List<String> currentWords;
+
+    private BufferedWriter wpmWriter;
+
+    private BufferedWriter accuracyWriter;
 
 
     List<String> quotesListFiles = Arrays.asList("src\\main\\java\\com\\example\\quotesList.txt", "src\\main\\java\\com\\example\\quotes2List.txt", "src\\main\\java\\com\\example\\quotes3List.txt");
@@ -113,7 +141,15 @@ public class MainPageController implements Initializable {
 
     boolean timerStarted = false;
 
-    
+    public MainPageController() {
+        try {
+            wpmWriter = new BufferedWriter(new FileWriter(new File("src\\main\\java\\com\\example\\words_per_minute.txt")));
+            accuracyWriter = new BufferedWriter(new FileWriter(new File("src\\main\\java\\com\\example\\accuracy.txt")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     void loadTest() {
         int wordsToDisplay = wordChoiceBox.getValue();
@@ -457,124 +493,6 @@ public class MainPageController implements Initializable {
         enteredWords = List.of(textDisplay.getText().split("\\s+"));
     }
 
-    @FXML
-    void SUDDENDEATHMODE() {
-        int wordsToDisplay = wordChoiceBox.getValue();
-
-        List<String> wordList = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("wordsList.txt")))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                wordList.add(line.trim());
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-        // Shuffle the wordList to create a random arrangement
-        Collections.shuffle(wordList);
-
-        wordList = wordList.subList(0, Math.min(wordList.size(), wordsToDisplay));
-
-        // Concatenate the selected words to form the text
-        arr = String.join(" ", wordList);
-
-        textDisplay.setText(arr);
-
-        textDisplay.requestFocus();
-        errorCount = 0;
-        indexOfLine = 0;
-        totalChar = 0;
-
-        textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
-        textDisplay.selectRange(indexOfLine, indexOfLine + 1); // highlighting the first character
-
-        // Declare a final array to hold the boolean value
-        textDisplay.setOnKeyTyped(new EventHandler<KeyEvent>() {
-            private boolean withinWord = false;
-            private boolean spacePressed = false;
-
-            @Override
-            public void handle(KeyEvent event) {
-                if (!timerStarted) {
-                    startTimer();
-                    timerStarted = true;
-                }
-
-                if (event.getCharacter().equals(" ")) {
-                    // Handle space character
-                    withinWord = false; // Mark current word as completed
-                    spacePressed = true; // Mark space as pressed
-                    textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
-                    indexOfLine++;
-                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
-                } else if (event.getCharacter().equals("\b")) {
-                    // Ignore backspace when space is pressed and word is completed
-                    if (!spacePressed && indexOfLine > 0) {
-                        // Only allow backspace within a word
-                        indexOfLine--;
-                        textDisplay.selectRange(indexOfLine, indexOfLine + 1);
-                    }
-                } else {
-                    // Update the character count when a non-space character is typed
-                    totalChar++;
-
-                    if (indexOfLine < arr.length()) {
-                        expectedKey = arr.charAt(indexOfLine);
-                        typedKey = event.getCharacter().charAt(0);
-
-                        if (typedKey != expectedKey) {
-                            errorCount++;
-                            stopTimer(); // Stop the timer on the first mistake
-                            switchSceneToResult();
-                        } else {
-                            textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: green;");
-                        }
-
-                        indexOfLine++;
-                        withinWord = true; // Mark that we are still within a word
-                        spacePressed = false; // Reset the spacePressed flag
-                    }
-
-                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
-
-                    if (indexOfLine == arr.length()) {
-                        stopTimer();
-                        withinWord = false; // Mark the current word as completed
-                        spacePressed = false; // Reset the spacePressed flag
-                    }
-                }
-            }
-        });
-    textDisplay.setEditable(false);
-    enteredWords = List.of(textDisplay.getText().split("\\s+"));
-}
-
-
-
-    private String getRandomQuotesListFilePath() {
-        if (quotesListFiles.isEmpty()) {
-            throw new IllegalArgumentException("quotesListFiles is empty");
-        }
-    
-        Random random = new Random();
-        int randomIndex = random.nextInt(quotesListFiles.size());
-        return quotesListFiles.get(randomIndex);
-    }
-
-    private String getRandomQuote(List<String> quotesList) {
-        // Choose a random quote from the list
-        if (quotesList.isEmpty()) {
-            throw new IllegalArgumentException("quotesList is empty");
-        }
-
-        Random random = new Random();
-        int randomIndex = random.nextInt(quotesList.size());
-        return quotesList.get(randomIndex);
-    }
-
-
-
     public List<String> readFile(String fileName) {
         List<String> lines = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -586,14 +504,6 @@ public class MainPageController implements Initializable {
             e.printStackTrace();
         }
         return lines;
-    }
-
-    void handleBackspace() {
-        if (indexOfLine > 0) {
-            indexOfLine--;
-            textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
-            textDisplay.selectRange(indexOfLine, indexOfLine + 1);
-        }
     }
 
     void change() {
@@ -611,7 +521,7 @@ public class MainPageController implements Initializable {
                     secs = 59;
                 }
             } else {
-                //secs--;
+                secs--;
     
                 // Update secondsRemaining
                 secondsRemaining = mins * 60 + secs;
@@ -652,10 +562,7 @@ public class MainPageController implements Initializable {
 
                         if (event.getCharacter().equals(" ")) {
                             // Handle space character
-                            //validateWord();
-                            textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
-                            indexOfLine++;
-                            textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+                            validateWord();
                         } else if (event.getCharacter().equals("\b")) {
                             handleBackspace();
                         } else {
@@ -691,7 +598,6 @@ public class MainPageController implements Initializable {
             System.out.println("Received null list of words.");
         }
     }
-    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -724,12 +630,6 @@ public class MainPageController implements Initializable {
         timeline.setAutoReverse(false);
 
         // Set up the resultButton click event handler
-        /*resultButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                switchSceneToResult(event);
-            }
-        });*/
     }
 
     private List<String> loadWordList(String fileName) {
@@ -781,9 +681,36 @@ public class MainPageController implements Initializable {
             elapsedSecs = 0;
         }
         updateElapsedTimeLabel();
-    
+        // Calculate words per minute and write to file
+        int totalWords = totalChar / 5;
+        int wpm = (int) Math.round((double) totalWords / (double) ((elapsedMins * 60) + elapsedSecs / 60.0));
+        double acc = (double) (totalWords - errorCount) / totalWords * 100;
+        writeAccToFile(acc);
+        writeWPMToFile(wpm);
         // Print statement to check elapsed time changes
         System.out.println("Elapsed Time: " + elapsedMins + ":" + elapsedSecs);
+    }
+
+    private void writeAccToFile(double acc){
+        try {
+            // Write the words per minute to the file
+            accuracyWriter.write(Integer.toString((int)acc));
+            accuracyWriter.newLine();
+            accuracyWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void writeWPMToFile(int wpm) {
+        try {
+            // Write the words per minute to the file
+            wpmWriter.write(Integer.toString(wpm));
+            wpmWriter.newLine();
+            wpmWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     void startTimer() {
@@ -812,11 +739,17 @@ public class MainPageController implements Initializable {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
-    
 
     void stopTimer() {
-        //timeline.pause(); use this is mainpageMode2controller
+        //timeline.pause();
         timeline.stop();
+        try {
+            // Close the FileWriter for words per minute
+            wpmWriter.close();
+            accuracyWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     void updateTimeLabel() {
@@ -842,6 +775,21 @@ public class MainPageController implements Initializable {
                 ", totalChar=" + totalChar);
     }
     
+    public void quit(ActionEvent event) {
+        stage = (Stage) mainPage.getScene().getWindow();
+        stage.close();
+    }
+
+    public void refresh(ActionEvent event) {
+        quit(event);
+        Platform.runLater( () -> {
+            try {
+                new App().start( new Stage() );
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } );
+    }
 
     void switchSceneToResult() {
         try {
@@ -881,5 +829,14 @@ public class MainPageController implements Initializable {
             ex.printStackTrace();
         }
         
+    }
+
+    public void switchToLeaderboard(ActionEvent event) throws IOException {
+        App a = new App();
+        a.changeScene("leaderboard.fxml");
+    }
+
+    public void displayCurrentUser(String username) {
+        displayCurrentUser.setText(username); 
     }
 }
