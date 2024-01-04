@@ -30,7 +30,7 @@ public class loginPageController
 
 
     public void checkLogin(ActionEvent event) throws IOException {
-        File profilesDirectory = new File("C:\\Users\\ASUS\\Documents\\VCS\\type-a-thon-edit\\src\\main\\java\\");
+        File profilesDirectory = new File("src\\main\\java");
         
         if (username.getText().trim().isEmpty() || password.getText().trim().isEmpty()) {
             wrongLogin.setText("Please enter your data!");
