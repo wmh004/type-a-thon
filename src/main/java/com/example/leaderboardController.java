@@ -15,7 +15,7 @@ import java.util.List;
 
 public class leaderboardController {
 
-    private static final String DIRECTORY_PATH = "C:\\Users\\ASUS\\Documents\\VCS\\type-a-thon-edit\\src\\main\\java\\";
+    private static final String DIRECTORY_PATH = "src\\main\\java";
 
     @FXML
     private Button back;
