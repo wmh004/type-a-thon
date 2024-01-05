@@ -97,52 +97,52 @@
                               <Font size="30.0" />
                            </font>
                         </Text>
-                        <Label fx:id="user1" layoutX="131.0" layoutY="11.0" prefHeight="46.0" prefWidth="1075.0" text="-">
+                        <Label fx:id="user1" layoutX="131.0" layoutY="11.0" prefHeight="46.0" prefWidth="1205.0" text="-">
                            <font>
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Label fx:id="user2" layoutX="131.0" layoutY="57.0" prefHeight="46.0" prefWidth="1075.0" text="-">
+                        <Label fx:id="user2" layoutX="131.0" layoutY="57.0" prefHeight="46.0" prefWidth="1210.0" text="-">
                            <font>
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Label fx:id="user3" layoutX="132.0" layoutY="98.0" prefHeight="46.0" prefWidth="1075.0" text="-">
+                        <Label fx:id="user3" layoutX="132.0" layoutY="98.0" prefHeight="46.0" prefWidth="1206.0" text="-">
                            <font>
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Label fx:id="user4" layoutX="132.0" layoutY="146.0" prefHeight="46.0" prefWidth="1075.0" text="-">
+                        <Label fx:id="user4" layoutX="132.0" layoutY="146.0" prefHeight="46.0" prefWidth="1203.0" text="-">
                            <font>
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Label fx:id="user5" layoutX="132.0" layoutY="190.0" prefHeight="46.0" prefWidth="1075.0" text="-">
+                        <Label fx:id="user5" layoutX="132.0" layoutY="190.0" prefHeight="46.0" prefWidth="1197.0" text="-">
                            <font>
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Label fx:id="user6" layoutX="132.0" layoutY="237.0" prefHeight="46.0" prefWidth="1075.0" text="-">
+                        <Label fx:id="user6" layoutX="132.0" layoutY="237.0" prefHeight="46.0" prefWidth="1205.0" text="-">
                            <font>
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Label fx:id="user7" layoutX="133.0" layoutY="285.0" prefHeight="46.0" prefWidth="1075.0" text="-">
+                        <Label fx:id="user7" layoutX="133.0" layoutY="285.0" prefHeight="46.0" prefWidth="1198.0" text="-">
                            <font>
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Label fx:id="user8" layoutX="134.0" layoutY="339.0" prefHeight="46.0" prefWidth="1075.0" text="-">
+                        <Label fx:id="user8" layoutX="134.0" layoutY="339.0" prefHeight="46.0" prefWidth="1197.0" text="-">
                            <font>
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Label fx:id="user9" layoutX="133.0" layoutY="389.0" prefHeight="46.0" prefWidth="1075.0" text="-">
+                        <Label fx:id="user9" layoutX="133.0" layoutY="389.0" prefHeight="46.0" prefWidth="1202.0" text="-">
                            <font>
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Label fx:id="user10" layoutX="133.0" layoutY="438.0" prefHeight="46.0" prefWidth="1075.0" text="-">
+                        <Label fx:id="user10" layoutX="133.0" layoutY="438.0" prefHeight="46.0" prefWidth="1198.0" text="-">
                            <font>
                               <Font size="30.0" />
                            </font>
@@ -172,12 +172,12 @@
                   <Font name="System Bold Italic" size="39.0" />
                </font>
             </Text>
-            <Label layoutX="343.0" layoutY="104.0" prefHeight="46.0" prefWidth="74.0" text="-">
+            <Label fx:id="personalBestWPM" layoutX="343.0" layoutY="104.0" prefHeight="46.0" prefWidth="74.0" text="-">
                <font>
                   <Font size="30.0" />
                </font>
             </Label>
-            <Label layoutX="537.0" layoutY="103.0" prefHeight="46.0" prefWidth="75.0" text="-">
+            <Label fx:id="personalBestAcc" layoutX="537.0" layoutY="103.0" prefHeight="46.0" prefWidth="75.0" text="-">
                <font>
                   <Font size="30.0" />
                </font>
@@ -192,12 +192,12 @@
                   <Font size="30.0" />
                </font>
             </Text>
-            <Label layoutX="1177.0" layoutY="103.0" prefHeight="46.0" prefWidth="73.0" text="-">
+            <Label fx:id="personalAverageWPM" layoutX="1177.0" layoutY="103.0" prefHeight="46.0" prefWidth="73.0" text="-">
                <font>
                   <Font size="30.0" />
                </font>
             </Label>
-            <Label layoutX="1364.0" layoutY="102.0" prefHeight="46.0" prefWidth="68.0" text="-">
+            <Label fx:id="personalAverageAcc" layoutX="1364.0" layoutY="102.0" prefHeight="46.0" prefWidth="68.0" text="-">
                <font>
                   <Font size="30.0" />
                </font>
