@@ -36,7 +36,7 @@ public class signUpPageController
             wrongLogin.setText("Please enter your data!");
         }
         else {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\ASUS\\Documents\\VCS\\type-a-thon-edit\\src\\main\\java\\playersProfile.txt", true))) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("src\\main\\java\\playersProfile.txt", true))) {
                 writer.write(username.getText() + "," + password.getText() + ",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,");
                 writer.newLine();
                 

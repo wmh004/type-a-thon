@@ -28,9 +28,14 @@ public class loginPageController
     @FXML
     private Button signUpNow;
 
+    private playerProfileController PlayerProfileController;
+
+    public void setPlayerProfileController(playerProfileController PlayerProfileController) {
+        this.PlayerProfileController = PlayerProfileController;
+    }
 
     public void checkLogin(ActionEvent event) throws IOException {
-    try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\ASUS\\Documents\\VCS\\type-a-thon-edit\\src\\main\\java\\playersProfile.txt"))) {
+    try (BufferedReader reader = new BufferedReader(new FileReader("src\\main\\java\\playersProfile.txt"))) {
         String line;
         boolean userFound = false;
 
@@ -42,11 +47,13 @@ public class loginPageController
 
                 loginButton.setText(username.getText());
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("afterLoginPage.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("afterLoginPage.fxml"));
                 Parent root = loader.load();
 
                 afterLoginPageController controller2 = loader.getController();
                 controller2.displayUsername(username.getText());
+
+                PlayerProfileController.getProfile(username.getText());
 
                 Stage stage = (Stage) loginButton.getScene().getWindow();
                 Scene scene = new Scene(root);  
