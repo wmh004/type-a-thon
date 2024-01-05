@@ -19,7 +19,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         stg = stage;
-        stage.setResizable(false);
+        stage.setResizable(true);
         Parent root = FXMLLoader.load(getClass().getResource("mainpage.fxml"));
         stage.setTitle("Type-a-Thon");
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/keyboard.png")));

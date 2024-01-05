@@ -42,6 +42,14 @@ public class leaderboardController {
     private Label user9;
     @FXML
     private Label user10;
+    @FXML
+    private Label personalBestWPM;
+    @FXML
+    private Label personalBestAcc;
+    @FXML
+    private Label personalAverageWPM;
+    @FXML
+    private Label personalAverageAcc;
 
     public void initialize() {
         try {
@@ -66,10 +74,11 @@ public class leaderboardController {
                         if (data.length >= 6) {
                             String username = data[0];
                             int score = Integer.parseInt(data[2]) + Integer.parseInt(data[3]);
-                            String index4 = data[4];
-                            String index5 = data[5];
-                            String index6 = data[6];
-                            players.add(new Player(username, score, index4, index5, index6));
+                            String avgWPM = data[2];
+                            String avgACC = data[3];
+                            String bestWPM = data[4];
+                            String bestACC = data[5];
+                            players.add(new Player(username, score, avgWPM, avgACC, bestWPM, bestACC));
                         }
                     }
                 }
@@ -94,16 +103,18 @@ public class leaderboardController {
     private static class Player implements Comparable<Player> {
         private final String username;
         private final int score;
-        private final String index4;
-        private final String index5;
-        private final String index6;
+        private final String avgWPM;
+        private final String avgACC;
+        private final String bestWPM;
+        private final String bestACC;
 
-        public Player(String username, int score, String index4, String index5, String index6) {
+        public Player(String username, int score, String avgWPM, String avgACC, String bestWPM, String bestACC) {
             this.username = username;
             this.score = score;
-            this.index4 = index4;
-            this.index5 = index5;
-            this.index6 = index6;
+            this.avgWPM = avgWPM;
+            this.avgACC = avgACC;
+            this.bestWPM = bestWPM;
+            this.bestACC = bestACC;
         }
 
         @Override
@@ -113,8 +124,8 @@ public class leaderboardController {
 
         @Override
         public String toString() {
-            return String.format("%-35s %-10d %-1s %-40s %-10s %-1s %-10s",
-                    username, score, index4, "%", index5, index6, "%");
+            return String.format("%-35s %-10s %-1s %-38s %-10s %-1s %-10s",
+                    username, avgWPM, avgACC, "%", bestWPM, bestACC, "%");
         }
     }
 
