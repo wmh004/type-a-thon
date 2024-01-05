@@ -429,6 +429,11 @@ public class MainPageController implements Initializable {
         }
 
         String selectedQuote = String.join(" ", quotesList);
+        // Add a message based on the selected quote file
+        String message = getMessageForQuoteFile(quotesListFilePath);
+        if (message != null && !message.isEmpty()) {
+            showAlert((Stage) textDisplay.getScene().getWindow(), "Quote Information", message);
+        }
         textDisplay.setText(selectedQuote);
 
         // Reset the state as needed
@@ -498,6 +503,32 @@ public class MainPageController implements Initializable {
         textDisplay.setEditable(false);
         enteredWords = List.of(textDisplay.getText().split("\\s+"));
     }
+
+    private String getMessageForQuoteFile(String quoteFilePath) {
+        switch (quoteFilePath) {
+            case "src\\main\\java\\com\\example\\quotesList.txt":
+                return "This quote is from Satoru Gojo(Lobotomy Kaisen).";
+            case "src\\main\\java\\com\\example\\quotes2List.txt":
+                return "This quote is from Erwin(Aot).";
+            case "src\\main\\java\\com\\example\\quotes3List.txt":
+                return "This quote is from source 3.";
+            default:
+                return null;
+        }
+    }
+    
+    private void showAlert(Stage ownerStage, String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+    
+        // Set the owner stage to make the alert appear on top of it
+        alert.initOwner(ownerStage);
+    
+        alert.showAndWait();
+    }
+    
 
     @FXML
     void SUDDENDEATHMODE() {
