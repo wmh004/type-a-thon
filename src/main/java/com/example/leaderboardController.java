@@ -18,7 +18,7 @@ import java.nio.charset.StandardCharsets;
 
 public class leaderboardController {
 
-    private static final String DIRECTORY_PATH = "src\\main\\java";
+    private static final String DIRECTORY_PATH = "src\\main\\";
 
     @FXML
     private Button back;

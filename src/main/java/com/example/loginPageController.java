@@ -29,7 +29,7 @@ public class loginPageController
     private Button signUpNow;
 
     public void checkLogin(ActionEvent event) throws IOException {
-        File profilesDirectory = new File("src\\main\\java");
+        File profilesDirectory = new File("src\\main\\");
         
         if (username.getText().trim().isEmpty() || password.getText().trim().isEmpty()) {
             wrongLogin.setText("Please enter your data!");
