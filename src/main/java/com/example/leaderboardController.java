@@ -118,17 +118,29 @@ public class leaderboardController {
         }
     }
 
-    //Username from loginPageController
-    private static String userProfile;
+    //username from loginPageController, wpm and acc from ResultController
+    private String username;
+    private double wpm;
+    private double acc;
 
-    public void getProfile(String username) {
-        userProfile = username;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setResultWPM(double wpm) {
+        this.wpm = wpm;
+    }
+
+    public void setResultACC(double acc) {
+        this.acc = acc;
     }
 
     //Results from ResultController
     public void resultsToProfile(double wpm, double acc) {
         String filePath = "src\\main\\java\\playersProfile.txt";
-        String username = userProfile;
+        setUsername(username);
+        setResultWPM(wpm);
+        setResultACC(acc);
         
         try {
             List<String> lines = Files.readAllLines(Paths.get(filePath));
@@ -150,9 +162,9 @@ public class leaderboardController {
     private static String insertResults(String line, String username, double wpm, double acc) {
         double[] parts = convertToDoubleArray(line.split(","));
         
-        //parts[0] username, parts[1] password, parts[2] best wpm, parts[3] best acc, parts[4] avg wpm, parts[5] avg acc
-        double bestWPM = parts[2]; double bestACC = parts[3];
-        double avgWPM = 0, avgACC = 0, totalWPM = 0, totalACC = 0;
+        //parts[0] username, parts[1] password, parts[2] avg wpm, parts[3] avg acc, parts[4] best wpm, parts[5] best acc
+        double avgWPM = parts[2]; double avgACC = parts[3];
+        double bestWPM = 0, bestACC = 0, totalWPM = 0, totalACC = 0;
 
         if(parts[24] != 0) { //If full, set the longest results to 0
                 parts[24] = 0;
@@ -164,7 +176,7 @@ public class leaderboardController {
             parts[i + 1] = parts[i - 1];
         }
 
-        parts[6] = wpm; parts[7] = acc;
+        parts[6] = wpm; parts[7] = acc; //insert recent game wpm and acc
 
         for(int i = 6; i < parts.length; i += 2) { //calculate average wpm and acc
             totalWPM += parts[i];
