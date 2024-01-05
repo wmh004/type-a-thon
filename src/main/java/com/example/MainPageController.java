@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -33,43 +34,65 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 
-public class MainPageController implements Initializable{
+public class MainPageController implements Initializable {
+
     @FXML
     private Label timeLabel;
+
     @FXML
     private Button resultButton;
+
     @FXML
     private TextArea textDisplay;
+
     @FXML
     private MenuItem numbersButton;
+
     @FXML
     private MenuItem punctuationButton;
+
     @FXML
     private ChoiceBox<Integer> timerChoiceBox;
+
     @FXML
     private ChoiceBox<Integer> wordChoiceBox;
-    @FXML
-    private Button stopwatchButton;
+
     @FXML
     private Label elapsedTimeLabel;
-    @FXML
+
+     @FXML
     private Label displayCurrentUser;
+
     @FXML
     private Button quotesButton;
+
+    @FXML
+    private Button wordButton;
+
+    @FXML
+    private Button SDbutton;
+
     @FXML
     private Button exit;
+
     @FXML
     private BorderPane mainPage;
+
     @FXML
     private Button refresh;
+
     @FXML
     private Button login;
+
     @FXML
     private Button leaderboard;
+
     @FXML
     private MenuItem quotesMode;
 
@@ -85,8 +108,6 @@ public class MainPageController implements Initializable{
 
     private char typedKey;
 
-    private boolean stopwatchRunning = false;
-
     private List<String> enteredWords;
 
     private List<String> currentWords;
@@ -95,16 +116,24 @@ public class MainPageController implements Initializable{
 
     private BufferedWriter accuracyWriter;
 
+
+    List<String> quotesListFiles = Arrays.asList("src\\main\\java\\com\\example\\quotesList.txt", "src\\main\\java\\com\\example\\quotes2List.txt", "src\\main\\java\\com\\example\\quotes3List.txt");
+    List<String> quotesList = new ArrayList<>();
+    
+
     private int elapsedMins = 0;
     private int elapsedSecs = 0;
 
     int indexOfLine = 0;
 
-    String arr = "";
+    //set to an empty string as a placeholder, and its value is replaced when the actual words are loaded from the file
+    //An empty string is a string with zero characters. It's different from a null value or a string with a space character.
+    String arr = ""; 
 
+    // Timer variables
     Timeline timeline;
 
-    int mins = 1, secs = 0;
+    int mins = 1, secs = 0; // Set the initial time to 01:00
 
     boolean timerStarted = false;
 
@@ -119,12 +148,25 @@ public class MainPageController implements Initializable{
 
     @FXML
     void loadTest() {
-        int wordsToDisplay = wordChoiceBox.getValue(); // Get the selected value from the choice box
+        int wordsToDisplay = wordChoiceBox.getValue();
+
+        //toggleStopwatch();
+
+        if (wordsToDisplay == 10 || wordsToDisplay == 25 || wordsToDisplay == 50 || wordsToDisplay == 100) {
+            timeLabel.setVisible(false); // Hide timelabel for specific word counts
+            elapsedTimeLabel.setVisible(true);
+            
+        } else {
+            timeLabel.setVisible(true); // Show timelabel for other word counts
+            elapsedTimeLabel.setVisible(false);
+            
+        }
+
         List<String> wordList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("wordsList.txt")))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                wordList.add(line.trim()); 
+                wordList.add(line.trim());
             }
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -135,59 +177,82 @@ public class MainPageController implements Initializable{
 
         wordList = wordList.subList(0, Math.min(wordList.size(), wordsToDisplay));
 
+        // Concatenate the selected words to form the text
         arr = String.join(" ", wordList);
 
-        textDisplay.setText(arr); // Display the shuffled words
+        textDisplay.setText(arr);
 
-        textDisplay.requestFocus(); 
+        textDisplay.requestFocus();
         errorCount = 0;
         indexOfLine = 0;
         totalChar = 0;
-    
-        textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
-        textDisplay.selectRange(indexOfLine, indexOfLine + 1); //highlighting the first character 
-                textDisplay.setOnKeyTyped(new EventHandler<KeyEvent>() {
-                    @Override
-                    public void handle(KeyEvent event) {
-                        if (!timerStarted) {
-                            startTimer();
-                            timerStarted = true;
-                        }
-                
-                        if (event.getCharacter().equals(" ")) {
-                            // Handle space character
-                            validateWord();
-                        } else if (event.getCharacter().equals("\b")) {
-                            handleBackspace();
-                        } else {
-                            expectedKey = arr.charAt(indexOfLine);
-                            typedKey = event.getCharacter().charAt(0);
-                
-                            if (indexOfLine < arr.length()) {
-                                if (typedKey != expectedKey) {
-                                    errorCount++;
-                                    indexOfLine++;
-                                    textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: red;");
-                                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
-                                } else {
-                                    indexOfLine++;
-                                    textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: green;");
-                                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
-                                }
-                            }
-                            if (!event.getCharacter().equals(" ")) {
-                                totalChar++;
-                            }
-                
-                            if (indexOfLine == arr.length()) {
-                                stopTimer();
-                            }
-                        }
-                    }
-                });
 
-                textDisplay.setEditable(false); 
-                enteredWords = List.of(textDisplay.getText().split("\\s+"));
+        textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
+        textDisplay.selectRange(indexOfLine, indexOfLine + 1); // highlighting the first character
+
+        // Declare a final array to hold the boolean value
+        textDisplay.setOnKeyTyped(new EventHandler<KeyEvent>() {
+            private boolean withinWord = false;
+            private boolean spacePressed = false;
+
+            @Override
+            public void handle(KeyEvent event) {
+                if (!timerStarted) {
+                    startTimer();
+                    timerStarted = true;
+                    //toggleStopwatch();
+                }
+
+                if (event.getCharacter().equals(" ")) {
+                    // Handle space character
+                    withinWord = false; // Mark current word as completed
+                    spacePressed = true; // Mark space as pressed
+                    textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
+                    indexOfLine++;
+                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+                } else if (event.getCharacter().equals("\b")) {
+                    // Ignore backspace when space is pressed and word is completed
+                    if (!spacePressed && indexOfLine > 0) {
+                        // Only allow backspace within a word
+                        indexOfLine--;
+                        textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+                    }
+                } else {
+                    // Update the character count when a non-space character is typed
+                    totalChar++;
+
+                    if (indexOfLine < arr.length()) {
+                        expectedKey = arr.charAt(indexOfLine);
+                        typedKey = event.getCharacter().charAt(0);
+            
+                        if (typedKey != expectedKey) {
+                            errorCount++;
+                            textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: red;");
+                        } else {
+                            textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: green;");
+                        }
+            
+                        indexOfLine++;
+                        withinWord = true; // Mark that we are still within a word
+                        spacePressed = false; // Reset the spacePressed flag
+            
+                        // Update the elapsed time label
+                        updateElapsedTimeLabel();
+                    }
+            
+                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+            
+                    if (indexOfLine == arr.length()) {
+                        stopTimer();
+                        withinWord = false; // Mark the current word as completed
+                        spacePressed = false; // Reset the spacePressed flag
+                        switchSceneToResult();
+                    }
+                }
+            }
+        });
+    textDisplay.setEditable(false);
+    enteredWords = List.of(textDisplay.getText().split("\\s+"));
     }
 
     @FXML
@@ -212,48 +277,65 @@ public class MainPageController implements Initializable{
         totalChar = 0;
         textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
         textDisplay.selectRange(indexOfLine, indexOfLine + 1); //highlighting the first character 
-                textDisplay.setOnKeyTyped(new EventHandler<KeyEvent>() {
-                    @Override
-                    public void handle(KeyEvent event) {
-                        if (!timerStarted) {
-                            startTimer();
-                            timerStarted = true;
-                        }
-                
-                        if (event.getCharacter().equals(" ")) {
-                            // Handle space character
-                            validateWord();
-                        } else if (event.getCharacter().equals("\b")) {
-                            handleBackspace();
-                        } else {
-                            expectedKey = mixedTextString.charAt(indexOfLine);
-                            typedKey = event.getCharacter().charAt(0);
-                
-                            if (indexOfLine < arr.length()) {
-                                if (typedKey != expectedKey) {
-                                    errorCount++;
-                                    indexOfLine++;
-                                    textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: red;");
-                                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
-                                } else {
-                                    indexOfLine++;
-                                    textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: green;");
-                                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
-                                }
-                            }
-                            if (!event.getCharacter().equals(" ")) {
-                                totalChar++;
-                            }
-                
-                            if (indexOfLine == arr.length()) {
-                                stopTimer();
-                            }
-                        }
-                    }
-                });
+            textDisplay.setOnKeyTyped(new EventHandler<KeyEvent>() {
+            private boolean withinWord = false;
+            private boolean spacePressed = false;
 
-                textDisplay.setEditable(false); 
-                enteredWords = List.of(textDisplay.getText().split("\\s+"));
+            @Override
+            public void handle(KeyEvent event) {
+                if (!timerStarted) {
+                    startTimer();
+                    timerStarted = true;
+                }
+
+                if (event.getCharacter().equals(" ")) {
+                    // Handle space character
+                    withinWord = false; // Mark current word as completed
+                    spacePressed = true; // Mark space as pressed
+                    textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
+                    indexOfLine++;
+                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+                } else if (event.getCharacter().equals("\b")) {
+                    // Ignore backspace when space is pressed and word is completed
+                    if (!spacePressed && indexOfLine > 0) {
+                        // Only allow backspace within a word
+                        indexOfLine--;
+                        textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+                    }
+                } else {
+                    // Update the character count when a non-space character is typed
+                    totalChar++;
+
+                    if (indexOfLine < mixedTextString.length()) {
+                        expectedKey = mixedTextString.charAt(indexOfLine);
+                        typedKey = event.getCharacter().charAt(0);
+
+                        if (typedKey != expectedKey) {
+                            errorCount++;
+                            textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: red;");
+                        } else {
+                            textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: green;");
+                        }
+
+                        indexOfLine++;
+                        withinWord = true; // Mark that we are still within a word
+                        spacePressed = false; // Reset the spacePressed flag
+                    }
+
+                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+
+                    if (indexOfLine == mixedTextString.length()) {
+                        stopTimer();
+                        withinWord = false; // Mark the current word as completed
+                        spacePressed = false; // Reset the spacePressed flag
+                        switchSceneToResult();
+                    }
+                }
+            }
+        });
+    
+        textDisplay.setEditable(false);
+        enteredWords = List.of(textDisplay.getText().split("\\s+"));
     }
 
     @FXML
@@ -277,63 +359,10 @@ public class MainPageController implements Initializable{
         totalChar = 0;
         textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
         textDisplay.selectRange(indexOfLine, indexOfLine + 1); //highlighting the first character 
-                textDisplay.setOnKeyTyped(new EventHandler<KeyEvent>() {
-                    @Override
-                    public void handle(KeyEvent event) {
-                        if (!timerStarted) {
-                            startTimer();
-                            timerStarted = true;
-                        }
-                
-                        if (event.getCharacter().equals(" ")) {
-                            // Handle space character
-                            validateWord();
-                        } else if (event.getCharacter().equals("\b")) {
-                            handleBackspace();
-                        } else {
-                            expectedKey = mixedTextString.charAt(indexOfLine);
-                            typedKey = event.getCharacter().charAt(0);
-                
-                            if (indexOfLine < arr.length()) {
-                                if (typedKey != expectedKey) {
-                                    errorCount++;
-                                    indexOfLine++;
-                                    textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: red;");
-                                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
-                                } else {
-                                    indexOfLine++;
-                                    textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: green;");
-                                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
-                                }
-                            }
-                            if (!event.getCharacter().equals(" ")) {
-                                totalChar++;
-                            }
-                
-                            if (indexOfLine == arr.length()) {
-                                stopTimer();
-                            }
-                        }
-                    }
-                });
+            textDisplay.setOnKeyTyped(new EventHandler<KeyEvent>() {
+            private boolean withinWord = false;
+            private boolean spacePressed = false;
 
-                textDisplay.setEditable(false); 
-                enteredWords = List.of(textDisplay.getText().split("\\s+"));
-    }
-
-    @FXML
-    void replaceTextWithQuotes() {
-        List<String> quotesList = readFile("src\\main\\java\\com\\example\\quotesList.txt"); // Assuming you have a quotesList.txt file
-        String a = String.join(" ", quotesList);
-        textDisplay.setText(a);
-
-        // Reset the state as needed
-        errorCount = 0;
-        indexOfLine = 0;
-        totalChar = 0;
-        textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
-        textDisplay.selectRange(indexOfLine, indexOfLine + 1); // highlighting the first character
-        textDisplay.setOnKeyTyped(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 if (!timerStarted) {
@@ -343,31 +372,127 @@ public class MainPageController implements Initializable{
 
                 if (event.getCharacter().equals(" ")) {
                     // Handle space character
-                    validateWord();
+                    withinWord = false; // Mark current word as completed
+                    spacePressed = true; // Mark space as pressed
+                    textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
+                    indexOfLine++;
+                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
                 } else if (event.getCharacter().equals("\b")) {
-                    handleBackspace();
+                    // Ignore backspace when space is pressed and word is completed
+                    if (!spacePressed && indexOfLine > 0) {
+                        // Only allow backspace within a word
+                        indexOfLine--;
+                        textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+                    }
                 } else {
-                    expectedKey = a.charAt(indexOfLine);
-                    typedKey = event.getCharacter().charAt(0);
+                    // Update the character count when a non-space character is typed
+                    totalChar++;
 
-                    if (indexOfLine < a.length()) {
+                    if (indexOfLine < mixedTextString.length()) {
+                        expectedKey = mixedTextString.charAt(indexOfLine);
+                        typedKey = event.getCharacter().charAt(0);
+
                         if (typedKey != expectedKey) {
                             errorCount++;
-                            indexOfLine++;
                             textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: red;");
-                            textDisplay.selectRange(indexOfLine, indexOfLine + 1);
                         } else {
-                            indexOfLine++;
                             textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: green;");
-                            textDisplay.selectRange(indexOfLine, indexOfLine + 1);
                         }
-                    }
-                    if (!event.getCharacter().equals(" ")) {
-                        totalChar++;
+
+                        indexOfLine++;
+                        withinWord = true; // Mark that we are still within a word
+                        spacePressed = false; // Reset the spacePressed flag
                     }
 
-                    if (indexOfLine == a.length()) {
+                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+
+                    if (indexOfLine == mixedTextString.length()) {
                         stopTimer();
+                        withinWord = false; // Mark the current word as completed
+                        spacePressed = false; // Reset the spacePressed flag
+                        switchSceneToResult();
+                    }
+                }
+            }
+        });
+
+                textDisplay.setEditable(false); 
+                enteredWords = List.of(textDisplay.getText().split("\\s+"));
+    }
+
+    @FXML
+    void replaceTextWithQuotes() {
+        String quotesListFilePath = getRandomQuotesListFilePath();
+        quotesList = readFile(quotesListFilePath);
+
+        if (quotesList.isEmpty()) {
+            System.out.println("Quotes list is empty.");
+            // Handle the case where the quotes list is empty (log, show a message, etc.)
+            return;
+        }
+
+        String selectedQuote = String.join(" ", quotesList);
+        textDisplay.setText(selectedQuote);
+
+        // Reset the state as needed
+        errorCount = 0;
+        indexOfLine = 0;
+        totalChar = 0;
+        textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
+        textDisplay.selectRange(indexOfLine, indexOfLine + 1); // highlighting the first character
+
+        textDisplay.setOnKeyTyped(new EventHandler<KeyEvent>() {
+            private boolean withinWord = false;
+            private boolean spacePressed = false;
+
+            @Override
+            public void handle(KeyEvent event) {
+                if (!timerStarted) {
+                    startTimer();
+                    timerStarted = true;
+                }
+
+                if (event.getCharacter().equals(" ")) {
+                    // Handle space character
+                    withinWord = false; // Mark current word as completed
+                    spacePressed = true; // Mark space as pressed
+                    textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
+                    indexOfLine++;
+                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+                } else if (event.getCharacter().equals("\b")) {
+                    // Ignore backspace when space is pressed and word is completed
+                    if (!spacePressed && indexOfLine > 0) {
+                        // Only allow backspace within a word
+                        indexOfLine--;
+                        textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+                    }
+                } else {
+                    // Update the character count when a non-space character is typed
+                    totalChar++;
+
+                    if (indexOfLine < selectedQuote.length()) {
+                        expectedKey = selectedQuote.charAt(indexOfLine);
+                        typedKey = event.getCharacter().charAt(0);
+
+                        if (typedKey != expectedKey) {
+                            errorCount++;
+                            textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: red;");
+                        } else {
+                            textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: green;");
+                        }
+
+                        indexOfLine++;
+                        withinWord = true; // Mark that we are still within a word
+                        spacePressed = false; // Reset the spacePressed flag
+                    }
+
+                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+
+                    if (indexOfLine == selectedQuote.length()) {
+                        stopTimer();
+                        withinWord = false; // Mark the current word as completed
+                        spacePressed = false; // Reset the spacePressed flag
+                        switchSceneToResult();
                     }
                 }
             }
@@ -375,6 +500,110 @@ public class MainPageController implements Initializable{
 
         textDisplay.setEditable(false);
         enteredWords = List.of(textDisplay.getText().split("\\s+"));
+    }
+
+    @FXML
+    void SUDDENDEATHMODE() {
+        int wordsToDisplay = wordChoiceBox.getValue();
+
+        List<String> wordList = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("wordsList.txt")))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                wordList.add(line.trim());
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        // Shuffle the wordList to create a random arrangement
+        Collections.shuffle(wordList);
+
+        wordList = wordList.subList(0, Math.min(wordList.size(), wordsToDisplay));
+
+        // Concatenate the selected words to form the text
+        arr = String.join(" ", wordList);
+
+        textDisplay.setText(arr);
+
+        textDisplay.requestFocus();
+        errorCount = 0;
+        indexOfLine = 0;
+        totalChar = 0;
+
+        textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
+        textDisplay.selectRange(indexOfLine, indexOfLine + 1); // highlighting the first character
+
+        // Declare a final array to hold the boolean value
+        textDisplay.setOnKeyTyped(new EventHandler<KeyEvent>() {
+            private boolean withinWord = false;
+            private boolean spacePressed = false;
+
+            @Override
+            public void handle(KeyEvent event) {
+                if (!timerStarted) {
+                    startTimer();
+                    timerStarted = true;
+                }
+
+                if (event.getCharacter().equals(" ")) {
+                    // Handle space character
+                    withinWord = false; // Mark current word as completed
+                    spacePressed = true; // Mark space as pressed
+                    textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
+                    indexOfLine++;
+                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+                } else if (event.getCharacter().equals("\b")) {
+                    // Ignore backspace when space is pressed and word is completed
+                    if (!spacePressed && indexOfLine > 0) {
+                        // Only allow backspace within a word
+                        indexOfLine--;
+                        textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+                    }
+                } else {
+                    // Update the character count when a non-space character is typed
+                    totalChar++;
+
+                    if (indexOfLine < arr.length()) {
+                        expectedKey = arr.charAt(indexOfLine);
+                        typedKey = event.getCharacter().charAt(0);
+
+                        if (typedKey != expectedKey) {
+                            errorCount++;
+                            stopTimer(); // Stop the timer on the first mistake
+                            switchSceneToResult();
+                        } else {
+                            textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: green;");
+                        }
+
+                        indexOfLine++;
+                        withinWord = true; // Mark that we are still within a word
+                        spacePressed = false; // Reset the spacePressed flag
+                    }
+
+                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+
+                    if (indexOfLine == arr.length()) {
+                        stopTimer();
+                        withinWord = false; // Mark the current word as completed
+                        spacePressed = false; // Reset the spacePressed flag
+                        switchSceneToResult();
+                    }
+                }
+            }
+        });
+    textDisplay.setEditable(false);
+    enteredWords = List.of(textDisplay.getText().split("\\s+"));
+}
+
+    private String getRandomQuotesListFilePath() {
+        if (quotesListFiles.isEmpty()) {
+            throw new IllegalArgumentException("quotesListFiles is empty");
+        }
+    
+        Random random = new Random();
+        int randomIndex = random.nextInt(quotesListFiles.size());
+        return quotesListFiles.get(randomIndex);
     }
 
     public List<String> readFile(String fileName) {
@@ -389,33 +618,13 @@ public class MainPageController implements Initializable{
         }
         return lines;
     }
-
-
-    void handleBackspace() {
-        if (indexOfLine > 0) {
+    //buang nanti
+    void handleBackspace(){
+        if(indexOfLine > 0){
             indexOfLine--;
-            textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
+            textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3");
             textDisplay.selectRange(indexOfLine, indexOfLine + 1);
         }
-    }
-
-    //This part isnt functioning yet
-    void validateWord() {
-        // Extract the entire word from the textDisplay
-        String word = textDisplay.getText().substring(0, indexOfLine).trim();
-
-        // Check if the entire word is correct
-        if (word.equals(arr.split(" ")[indexOfLine])) {
-            // Turn the entire word green
-            textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: green;");
-            //correctWords++;
-        } else {
-            // Turn the entire word red
-            textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: red;");
-        }
-
-        indexOfLine++;
-        textDisplay.selectRange(indexOfLine, indexOfLine + 1);
     }
 
     void change() {
@@ -433,7 +642,7 @@ public class MainPageController implements Initializable{
                     secs = 59;
                 }
             } else {
-                secs--;
+                //secs--;
     
                 // Update secondsRemaining
                 secondsRemaining = mins * 60 + secs;
@@ -465,44 +674,61 @@ public class MainPageController implements Initializable{
                 textDisplay.selectRange(indexOfLine, indexOfLine + 1); // highlighting the first character
     
                 textDisplay.setOnKeyTyped(new EventHandler<KeyEvent>() {
-                    @Override
-                    public void handle(KeyEvent event) {
-                        if (!timerStarted) {
-                            startTimer();
-                            timerStarted = true;
-                        }
+            private boolean withinWord = false;
+            private boolean spacePressed = false;
 
-                        if (event.getCharacter().equals(" ")) {
-                            // Handle space character
-                            validateWord();
-                        } else if (event.getCharacter().equals("\b")) {
-                            handleBackspace();
-                        } else {
-                            expectedKey = wordsText.charAt(indexOfLine);
-                            typedKey = event.getCharacter().charAt(0);
+            @Override
+            public void handle(KeyEvent event) {
+                if (!timerStarted) {
+                    startTimer();
+                    timerStarted = true;
+                }
 
-                            if (indexOfLine < wordsText.length()) {
-                                if (typedKey != expectedKey) {
-                                    errorCount++;
-                                    indexOfLine++;
-                                    textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: red;");
-                                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
-                                } else {
-                                    indexOfLine++;
-                                    textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: green;");
-                                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
-                                }
-                            }
-                            if (!event.getCharacter().equals(" ")) {
-                                totalChar++;
-                            }
-
-                            if (indexOfLine == wordsText.length()) {
-                                stopTimer();
-                            }
-                        }
+                if (event.getCharacter().equals(" ")) {
+                    // Handle space character
+                    withinWord = false; // Mark current word as completed
+                    spacePressed = true; // Mark space as pressed
+                    textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: #2196f3;");
+                    indexOfLine++;
+                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+                } else if (event.getCharacter().equals("\b")) {
+                    // Ignore backspace when space is pressed and word is completed
+                    if (!spacePressed && indexOfLine > 0) {
+                        // Only allow backspace within a word
+                        indexOfLine--;
+                        textDisplay.selectRange(indexOfLine, indexOfLine + 1);
                     }
-                });
+                } else {
+                    // Update the character count when a non-space character is typed
+                    totalChar++;
+
+                    if (indexOfLine < wordsText.length()) {
+                        expectedKey = wordsText.charAt(indexOfLine);
+                        typedKey = event.getCharacter().charAt(0);
+
+                        if (typedKey != expectedKey) {
+                            errorCount++;
+                            textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: red;");
+                        } else {
+                            textDisplay.setStyle("-fx-highlight-fill: #bbdefb; -fx-highlight-text-fill: green;");
+                        }
+
+                        indexOfLine++;
+                        withinWord = true; // Mark that we are still within a word
+                        spacePressed = false; // Reset the spacePressed flag
+                    }
+
+                    textDisplay.selectRange(indexOfLine, indexOfLine + 1);
+
+                    if (indexOfLine == wordsText.length()) {
+                        stopTimer();
+                        withinWord = false; // Mark the current word as completed
+                        spacePressed = false; // Reset the spacePressed flag
+                        switchSceneToResult();
+                    }
+                }
+            }
+        });
     
                 textDisplay.setEditable(false); 
             }
@@ -510,14 +736,10 @@ public class MainPageController implements Initializable{
             System.out.println("Received null list of words.");
         }
     }
-    
-    
-    
-    
-    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        textDisplay.requestFocus();
         
         ObservableList<Integer> timerOptions = FXCollections.observableArrayList(15, 30, 45, 60);
         timerChoiceBox.setItems(timerOptions);
@@ -536,7 +758,7 @@ public class MainPageController implements Initializable{
 
         wordChoiceBox.setValue(wordList.size());
 
-        stopwatchButton.setOnAction(event -> toggleStopwatch());
+        //stopwatchButton.setOnAction(event -> toggleStopwatch());
         updateElapsedTimeLabel();
 
         loadTest();
@@ -562,35 +784,7 @@ public class MainPageController implements Initializable{
         return words;
     }
 
-    @FXML
-    void toggleStopwatch() {
-        if (stopwatchRunning) {
-            System.out.println("Stopwatch paused");
-            timeline.pause();
-            stopwatchRunning = false;
-            stopwatchButton.setText("Start");
-        } else {
-            System.out.println("Stopwatch started");
-            // Reset elapsed time when starting the stopwatch
-            elapsedMins = 0;
-            elapsedSecs = 0;
-
-            // Reset the countdown timer if it's already started
-            if (timerStarted) {
-                timerStarted = false;
-                secs = timerChoiceBox.getValue();
-                mins = secs / 60; // Convert seconds to minutes
-                secs = secs % 60; // Get the remaining seconds
-                updateTimeLabel();
-            }
-
-            timeline.play();
-            stopwatchRunning = true;
-            stopwatchButton.setText("Stop");
-        }
-    }
-
-
+    
     void updateElapsedTime() {
         elapsedSecs++;
         if (elapsedSecs == 60) {
@@ -601,7 +795,7 @@ public class MainPageController implements Initializable{
         // Calculate words per minute and write to file
         int totalWords = totalChar / 5;
         int wpm = (int) Math.round((double) totalWords / (double) ((elapsedMins * 60) + elapsedSecs / 60.0));
-        double acc = (double) (totalWords - errorCount) / totalWords * 100;
+        double acc = (double) (totalChar - errorCount) / totalChar * 100;
         writeAccToFile(acc);
         writeWPMToFile(wpm);
         // Print statement to check elapsed time changes
@@ -635,14 +829,31 @@ public class MainPageController implements Initializable{
         secs = timerChoiceBox.getValue();
         mins = secs / 60; // Convert seconds to minutes
         secs = secs % 60; // Get the remaining seconds
-
+    
         updateTimeLabel();
+    
+        // Create a KeyFrame that updates the timer every second
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), event -> {
+            secs--;
+    
+            // Update your UI with the current time
+            updateTimeLabel();
+    
+            // Check if the timer has reached 0
+            if (secs <= 0) {
+                stopTimer(); // Stop the timer
+                switchSceneToResult(); // Switch to results scene
+            }
+        });
+    
+        timeline.getKeyFrames().add(keyFrame);
+        timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
 
     void stopTimer() {
         //timeline.pause();
-        timeline.stop();
+        timeline.pause();
         try {
             // Close the FileWriter for words per minute
             wpmWriter.close();
@@ -658,21 +869,6 @@ public class MainPageController implements Initializable{
 
     void updateElapsedTimeLabel() {
         elapsedTimeLabel.setText(String.format("%02d:%02d", elapsedMins, elapsedSecs));
-    }
-
-    public void initializeDataWithoutChangingUI(int secondsRemaining, int errorCount, int totalChar) {
-        // Set up the initial data without modifying the UI components
-        this.errorCount = errorCount;
-        this.totalChar = totalChar;
-        this.secondsRemaining = secondsRemaining;
-
-        // Additional initialization logic if needed
-
-        // You can print debug information to verify that the data is correctly initialized
-        System.out.println("Initialized data without changing UI: " +
-                "secondsRemaining=" + secondsRemaining +
-                ", errorCount=" + errorCount +
-                ", totalChar=" + totalChar);
     }
     
     public void quit(ActionEvent event) {
@@ -692,32 +888,28 @@ public class MainPageController implements Initializable{
     }
 
     @FXML
-    void switchSceneToResult(ActionEvent event) {
-        //change();
+    void switchSceneToResult() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("Results.fxml"));
             Parent root = loader.load();
-            Scene scene = new Scene(root);
-            
-            //Since we need to pass values to the resultscontroller we need to do this first
+    
+            // Since we need to pass values to the resultscontroller we need to do this first
             ResultController controller = loader.getController();
-            controller.initializeMyData(secondsRemaining, errorCount, totalChar);
-            
+            controller.initializeMyData(secondsRemaining, errorCount, totalChar, elapsedMins, elapsedSecs);
             controller.setCurrentWords(enteredWords);
-            System.out.println("Entered words are " + enteredWords);
-
-
-            Stage theStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            theStage.setScene(scene);
-            theStage.show();
+    
+            Stage currentStage = (Stage) textDisplay.getScene().getWindow(); // Assuming textDisplay is part of the current scene
+            Scene scene = new Scene(root);
+    
+            currentStage.setScene(scene);
+            currentStage.show();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        
     }
 
-    public void switchToLogin(ActionEvent event) throws IOException {
+    public void switchToLogin(ActionEvent event) throws IOException{
         App a = new App();
         a.changeScene("loginPage.fxml");
     }

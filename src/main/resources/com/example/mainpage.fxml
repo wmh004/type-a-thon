@@ -41,10 +41,9 @@
                   <Font name="Consolas Bold" size="47.0" />
                </font>
             </Label>
-            <Button fx:id="stopwatchButton" layoutX="918.0" layoutY="31.0" mnemonicParsing="false" onAction="#toggleStopwatch" text="Start" />
-            <Label fx:id="elapsedTimeLabel" alignment="CENTER" layoutX="891.0" layoutY="69.0" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: white;">
+            <Label alignment="CENTER" layoutX="858.0" layoutY="62.0" prefHeight="41.0" prefWidth="94.0">
                <font>
-                  <Font name="Wormbox" size="20.0" />
+                  <Font name="Consolas Bold" size="26.0" />
                </font>
             </Label>
          </children>
@@ -88,26 +87,21 @@
                         <MenuItem fx:id="punctuationButton" mnemonicParsing="false" onAction="#replaceTextWithPunctuation" text="Punctuation" />
                      </items>
                   </MenuButton>
-                  <AnchorPane layoutX="528.0" layoutY="11.0" prefHeight="40.0" prefWidth="91.0" style="-fx-background-color: #FFFFFF;">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="41.0" prefWidth="94.0">
-                           <font>
-                              <Font name="Consolas Bold" size="26.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="timeLabel" alignment="CENTER" layoutX="-1.0" prefHeight="41.0" prefWidth="94.0" textFill="#ff0101">
-                           <font>
-                              <Font name="Wormbox" size="20.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
                   <Button fx:id="login" layoutX="732.0" layoutY="9.0" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="43.0" prefWidth="150.0" text="Login">
                      <font>
                         <Font name="Consolas Bold" size="19.0" />
                      </font>
                   </Button>
-                  <Button fx:id="resultButton" layoutX="648.0" layoutY="18.0" mnemonicParsing="false" onAction="#switchSceneToResult" onKeyPressed="#switchSceneToResult" text="Results" />
+                  <Label fx:id="elapsedTimeLabel" alignment="CENTER" layoutX="623.0" layoutY="13.0" prefHeight="34.0" prefWidth="71.0" style="-fx-background-color: white;">
+                     <font>
+                        <Font name="Wormbox" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="timeLabel" alignment="CENTER" layoutX="535.0" layoutY="13.0" prefHeight="36.0" prefWidth="74.0" style="-fx-background-color: white;" text="01:00" textFill="#ff0101">
+                     <font>
+                        <Font name="Wormbox" size="20.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
             <Button fx:id="refresh" layoutX="41.0" layoutY="624.0" mnemonicParsing="false" onAction="#refresh" prefHeight="48.0" prefWidth="128.0" text="Refresh">
@@ -120,6 +114,7 @@
                   <Font name="Consolas Bold" size="19.0" />
                </font>
             </Button>
+            <Button fx:id="SDbutton" layoutX="102.0" layoutY="29.0" mnemonicParsing="false" onAction="#SUDDENDEATHMODE" text="SUDDEN DEATH" />
             <Button fx:id="leaderboard" layoutX="631.0" layoutY="624.0" mnemonicParsing="false" onAction="#switchToLeaderboard" prefHeight="48.0" prefWidth="137.0" text="Leaderboard">
                <font>
                   <Font name="Consolas Bold" size="18.0" />

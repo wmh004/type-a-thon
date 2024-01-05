@@ -50,6 +50,11 @@
          <font>
             <Font name="Consolas Bold" size="15.0" />
          </font></Button>
+      <VBox layoutX="588.0" layoutY="192.0" prefHeight="98.0" prefWidth="103.0" style="-fx-background-color: black;">
+         <children>
+            <Label fx:id="Errors" alignment="CENTER" prefHeight="99.0" prefWidth="103.0" textFill="WHITE" />
+         </children>
+      </VBox>
       <Label layoutX="683.0" layoutY="14.0" text="RESULTS">
          <font>
             <Font name="Consolas Bold" size="60.0" />

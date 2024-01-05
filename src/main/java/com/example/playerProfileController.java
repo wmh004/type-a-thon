@@ -56,6 +56,7 @@ public class playerProfileController
 
             Files.write(Paths.get(filePath), lines, StandardCharsets.UTF_8);    
         } catch (IOException e) {
+            System.out.println("Error in updating player profile.");
             e.printStackTrace();
         }
     }

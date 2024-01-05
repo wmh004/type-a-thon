@@ -1,21 +1,21 @@
 package com.example;
 
+import java.io.IOException;
+
+// App.java
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.geometry.Rectangle2D;
-
-import java.io.IOException;
 
 public class App extends Application {
-
     private static Stage stg;
     private static Scene scene;
-
+    
     @Override
     public void start(Stage stage) throws IOException {
         stg = stage;
@@ -38,6 +38,6 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 }   
