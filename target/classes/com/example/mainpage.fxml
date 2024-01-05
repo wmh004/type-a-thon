@@ -97,7 +97,7 @@
                         <Font name="Wormbox" size="20.0" />
                      </font>
                   </Label>
-                  <Label fx:id="timeLabel" alignment="CENTER" layoutX="535.0" layoutY="13.0" prefHeight="36.0" prefWidth="74.0" style="-fx-background-color: white;" text="01:00" textFill="#ff0101">
+                  <Label fx:id="timeLabel" alignment="CENTER" layoutX="535.0" layoutY="13.0" prefHeight="36.0" prefWidth="74.0" style="-fx-background-color: white;" textFill="#ff0101">
                      <font>
                         <Font name="Wormbox" size="20.0" />
                      </font>
