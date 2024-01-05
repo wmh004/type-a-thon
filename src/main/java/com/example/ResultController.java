@@ -72,14 +72,14 @@ public class ResultController implements Initializable {
     }
 
     //USE THIS IN TYPE A THON
-    public void initializeMyData(int secondsRemaining, int errorCount, int totalChar) {
+    public void initializeMyData(int secondsRemaining, int errorCount, int totalChar, int elapsedMins, int elapsedSecs) {
 
         System.out.println("Total Characters: " + totalChar);
 
         int totalWords = totalChar / 5;
         System.out.println("Total Words: " + totalWords);
 
-        double wpm = ((double) totalWords) / ((60.0 - secondsRemaining) / 60.0);
+        double wpm = ((double) totalWords) / (double) ((elapsedMins * 60) + elapsedSecs / 60.0);
         System.out.println("Initial WPM: " + wpm);
 
         System.out.println("initializeMyData called with: " +
@@ -88,7 +88,7 @@ public class ResultController implements Initializable {
             ", totalChar=" + totalChar);
             
         // Assuming every word is 5 letters long
-        double acc = (double) (totalWords - errorCount) / totalWords * 100;
+        double acc = (double) (totalChar - errorCount) / totalChar * 100;
     
         speed.setText(String.format("%.2f", wpm));
         accuracy.setText(String.format("%.1f", acc));
@@ -116,7 +116,7 @@ public class ResultController implements Initializable {
             mainPageController.setCurrentWords(currentWords);
 
             // Set the data without modifying the text area
-            mainPageController.initializeDataWithoutChangingUI(secondsRemaining, errorCount, totalChar);
+            //mainPageController.initializeDataWithoutChangingUI(secondsRemaining, errorCount, totalChar);
 
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
