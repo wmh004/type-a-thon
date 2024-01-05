@@ -28,12 +28,6 @@ public class loginPageController
     @FXML
     private Button signUpNow;
 
-    private playerProfileController PlayerProfileController;
-
-    public void setPlayerProfileController(playerProfileController PlayerProfileController) {
-        this.PlayerProfileController = PlayerProfileController;
-    }
-
     public void checkLogin(ActionEvent event) throws IOException {
         File profilesDirectory = new File("src\\main\\java");
         
