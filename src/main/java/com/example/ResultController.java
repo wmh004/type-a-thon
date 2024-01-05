@@ -67,14 +67,8 @@ public class ResultController implements Initializable {
 
     private int totalChar;
 
-    private playerProfileController PlayerProfileController;
-
     public void setCurrentWords(List<String> words) {
         this.currentWords = words;
-    }
-
-    public void setPlayerProfileController(playerProfileController PlayerProfileController) {
-        this.PlayerProfileController = PlayerProfileController;
     }
 
     //USE THIS IN TYPE A THON
@@ -102,8 +96,6 @@ public class ResultController implements Initializable {
         Errors.setText(String.valueOf(errorCount));
 
         this.secondsRemaining = secondsRemaining;
-
-        PlayerProfileController.resultsToProfile(wpm, acc);
     }
 
     public void playAgainRandom(ActionEvent event) throws IOException {
