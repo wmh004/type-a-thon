@@ -150,8 +150,6 @@ public class MainPageController implements Initializable {
     void loadTest() {
         int wordsToDisplay = wordChoiceBox.getValue();
 
-        //toggleStopwatch();
-
         if (wordsToDisplay == 10 || wordsToDisplay == 25 || wordsToDisplay == 50 || wordsToDisplay == 100) {
             timeLabel.setVisible(false); // Hide timelabel for specific word counts
             elapsedTimeLabel.setVisible(true);
@@ -200,7 +198,6 @@ public class MainPageController implements Initializable {
                 if (!timerStarted) {
                     startTimer();
                     timerStarted = true;
-                    //toggleStopwatch();
                 }
 
                 if (event.getCharacter().equals(" ")) {
@@ -628,7 +625,6 @@ public class MainPageController implements Initializable {
     }
 
     void change() {
-        // Countdown logic
         if (timerStarted) {
             if (secs == 0) {
                 if (mins == 0) {
@@ -636,13 +632,12 @@ public class MainPageController implements Initializable {
                     textDisplay.setEditable(false);
                     textDisplay.setFocusTraversable(false);
                     textDisplay.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
-                    // Additional logic if needed after countdown completion
                 } else {
                     mins--;
                     secs = 59;
                 }
             } else {
-                //secs--;
+                secs--;
     
                 // Update secondsRemaining
                 secondsRemaining = mins * 60 + secs;
@@ -651,9 +646,17 @@ public class MainPageController implements Initializable {
     
                 // Update elapsed time
                 updateElapsedTime();
+    
+                // Check if the timer has reached 0
+                if (secs <= 0 && mins <= 0) {
+                    stopTimer(); // Stop the timer
+                    switchSceneToResult(); // Switch to results scene
+                    secondsRemaining = 0; // Ensure secondsRemaining is set to 0
+                }
             }
         }
     }
+    
 
     public void setEnteredWords(List<String> enteredWords) {
         this.enteredWords = enteredWords;
@@ -834,15 +837,16 @@ public class MainPageController implements Initializable {
     
         // Create a KeyFrame that updates the timer every second
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), event -> {
-            secs--;
+            //secs--;
     
             // Update your UI with the current time
             updateTimeLabel();
     
             // Check if the timer has reached 0
-            if (secs <= 0) {
+            if (secs <= 0 && mins <= 0) {
                 stopTimer(); // Stop the timer
                 switchSceneToResult(); // Switch to results scene
+                secondsRemaining = 0; // Ensure secondsRemaining is set to 0
             }
         });
     
@@ -850,6 +854,7 @@ public class MainPageController implements Initializable {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
+    
 
     void stopTimer() {
         //timeline.pause();
