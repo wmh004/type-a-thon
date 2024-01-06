@@ -12,9 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.nio.file.*;
-import java.util.stream.Collectors;
-import java.nio.charset.StandardCharsets;
 
 public class leaderboardController {
 
@@ -128,45 +125,51 @@ public class leaderboardController {
                     username, avgWPM, avgACC, "%", bestWPM, bestACC, "%");
         }
     }
-
+        
     //username from loginPageController, wpm and acc from ResultController
-    private String username;
+    /*private String username;
     private double wpm;
     private double acc;
+
 
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public void setResultWPM(double wpm) {
+    public void setWPM(double wpm) {
         this.wpm = wpm;
     }
 
-    public void setResultACC(double acc) {
+    public void setACC(double acc) {
         this.acc = acc;
     }
 
     //Results from ResultController
     public void resultsToProfile(double wpm, double acc) {
-        String filePath = "src\\main\\java\\playersProfile.txt";
         setUsername(username);
-        setResultWPM(wpm);
-        setResultACC(acc);
-        
-        try {
-            List<String> lines = Files.readAllLines(Paths.get(filePath));
+        setWPM(wpm);
+        setACC(acc);
 
-            for(int i = 0; i < lines.size(); i++) {
-                String line = lines.get(i);
-                if(line.contains(username)) {
-                    lines.set(i, insertResults(line, username, wpm, acc));
-                    break;
+        File directory = new File(DIRECTORY_PATH);
+
+        for (File file : directory.listFiles()) {
+            if (file.isFile() && file.getName().startsWith(username) && file.getName().endsWith("Profile.txt")) {
+                String filePath = "src\\main\\java\\" + username + "Profile.txt";
+                List<String> lines;
+                try {
+                    lines = Files.readAllLines(Paths.get(filePath), StandardCharsets.UTF_8);
+                    
+                    for(int i = 0; i < lines.size(); i++) {
+                        String line = lines.get(i);
+                        lines.set(i, insertResults(line, username, wpm, acc));
+                        break;     
+                    }
+                    
+                    Files.write(Paths.get(filePath), lines, StandardCharsets.UTF_8);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-
-            Files.write(Paths.get(filePath), lines, StandardCharsets.UTF_8);    
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -175,14 +178,14 @@ public class leaderboardController {
         
         //parts[0] username, parts[1] password, parts[2] avg wpm, parts[3] avg acc, parts[4] best wpm, parts[5] best acc
         double avgWPM = parts[2]; double avgACC = parts[3];
-        double bestWPM = 0, bestACC = 0, totalWPM = 0, totalACC = 0;
+        double totalWPM = 0, totalACC = 0;
 
         if(parts[24] != 0) { //If full, set the longest results to 0
                 parts[24] = 0;
                 parts[25] = 0;
             }
 
-        for(int i = 24; i >= 8; i -= 2) { //Update 10 latest wpm and acc
+        for(int i = 24; i >= 8; i -= 2) { //Update 10 latest wpm and acc, odd is wpm, even is acc
             parts[i] = parts[i - 2];
             parts[i + 1] = parts[i - 1];
         }
@@ -195,14 +198,14 @@ public class leaderboardController {
         }
 
         avgWPM = totalWPM / 10.0; avgACC = totalACC / 10.0;
-        parts[4] = avgWPM; parts[5] = avgACC;
+        parts[2] = avgWPM; parts[3] = avgACC;
 
-        if(avgWPM > bestWPM) { //compare recent wpm and acc with best wpm and acc
-            parts[2] = parts[4];
+        if(parts[2] > parts[4]) { //compare recent wpm and acc with best wpm and acc
+            parts[4] = parts[2];
         }
 
-        if(avgACC > bestACC) {
-            parts[3] = parts[5];
+        if(parts[3] > parts[5]) {
+            parts[5] = parts[3];
         }
 
         return convertToString(parts);
@@ -227,7 +230,7 @@ public class leaderboardController {
         }
 
         return builder.toString();
-    }
+    }*/
 
     public void switchToMainPage(ActionEvent event) throws IOException {
         App a = new App();
