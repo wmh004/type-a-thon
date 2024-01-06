@@ -127,7 +127,7 @@ public class ResultController implements Initializable {
         }
 
         for (File file : directory.listFiles()) {
-            if (file.isFile() && file.getName().contains(username) && file.getName().endsWith("Profile.txt")) {
+            if (file.isFile() && file.getName().startsWith(username) && file.getName().endsWith("Profile.txt")) {
                 Path filePath = Paths.get("src\\main\\java\\" + username + "Profile.txt");
                 try { 
                     List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);

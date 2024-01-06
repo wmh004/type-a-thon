@@ -4,12 +4,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -50,10 +56,22 @@ public class leaderboardController {
     @FXML
     private Label personalAverageAcc;
 
+    private String username;
+
     public void initialize() {
         try {
+            File userProfile = new File("src\\main\\java\\com\\example\\userProfile.txt");
+            try (BufferedReader reader = new BufferedReader(new FileReader(userProfile))) {
+                username = reader.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             List<Player> players = readSignUpFiles();
             displayTopPlayers(players);
+            
+            displayProfile(username);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -85,6 +103,37 @@ public class leaderboardController {
         }
 
         return players;
+    }
+
+    private void displayProfile(String username) {
+        File directory = new File(DIRECTORY_PATH);
+        
+        for (File file : directory.listFiles()) {
+            if (file.isFile() && file.getName().startsWith(username) && file.getName().endsWith("Profile.txt")) {
+                Path filePath = Paths.get("src\\main\\java\\" + username + "Profile.txt");
+                try { 
+                    List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
+                    String[] parts = lines.get(0).split(",");
+                    
+                    List<Label> labels = List.of(personalBestWPM, personalBestAcc, personalAverageWPM, personalAverageAcc);
+                    for(int i = 0; i < labels.size(); i++) {
+                        System.out.println("Setting label " + i + " to: " + parts[i + 2]);
+                        labels.get(i).setText(parts[i + 2]);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                List<Label> labels = List.of(personalBestWPM, personalBestAcc, personalAverageWPM, personalAverageAcc);
+                //labels.get(0).setText("Guest");
+                System.out.println("Guest user or file not found.");
+                labels.get(0).setText("N/A");
+                labels.get(1).setText("N/A");
+                labels.get(2).setText("N/A");
+                labels.get(3).setText("N/A");
+            }
+        }
     }
 
     private void displayTopPlayers(List<Player> players) {
