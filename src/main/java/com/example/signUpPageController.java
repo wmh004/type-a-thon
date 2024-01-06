@@ -38,7 +38,7 @@ public class signUpPageController
         } else if (!enteredPassword.matches("\\d+")) {
             wrongLogin.setText("Enter password of numbers only");
         } else {
-            String userFilename = "src\\main\\resources" + enteredUsername + "Profile.txt";
+            String userFilename = "src\\main\\java\\" + enteredUsername + "Profile.txt";
     
             // Check if the username already exists
             if (usernameExists(userFilename)) {

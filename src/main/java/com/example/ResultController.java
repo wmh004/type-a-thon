@@ -127,7 +127,7 @@ public class ResultController implements Initializable {
         }
 
         for (File file : directory.listFiles()) {
-            if (file.isFile() && file.getName().startsWith(username) && file.getName().endsWith("Profile.txt")) {
+            if (file.isFile() && file.getName().contains(username) && file.getName().endsWith("Profile.txt")) {
                 Path filePath = Paths.get("src\\main\\java\\" + username + "Profile.txt");
                 try { 
                     List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
@@ -168,7 +168,14 @@ public class ResultController implements Initializable {
             totalACC += updatedParts[i + 1];
         }
 
-        avgWPM = (int) totalWPM / 10 ; avgACC = (int) totalACC / 10 ;
+        int games = 0;
+        for(int i = 6; i < updatedParts.length; i +=2) {
+            if(updatedParts[i] != 0) {
+                games++;
+            }
+        }
+
+        avgWPM = (int) totalWPM / games ; avgACC = (int) totalACC / games ;
         updatedParts[2] = avgWPM; updatedParts[3] = avgACC;
 
         if(updatedParts[2] > updatedParts[4]) { //compare recent wpm and acc with best wpm and acc
