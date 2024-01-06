@@ -40,6 +40,8 @@ public class leaderboardController {
     @FXML
     private Label user10;
     @FXML
+    private Label currentUser;
+    @FXML
     private Label personalBestWPM;
     @FXML
     private Label personalBestAcc;
