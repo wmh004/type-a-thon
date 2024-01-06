@@ -28,48 +28,51 @@ public class signUpPageController
     private BufferedWriter usernameWriter;
 
     public void checkSignUp() {
-    String enteredUsername = username.getText().trim();
-    String enteredPassword = password.getText().trim();
-
-    if (enteredUsername.isEmpty() || enteredPassword.isEmpty()) {
-        wrongLogin.setText("Please enter both username and password");
-    } else if (enteredUsername.length() != 8 || !enteredUsername.matches("\\d+")) {
-        wrongLogin.setText("Enter a valid 8-digit numeric username");
-    } else {
-        String userFilename = "src\\main\\java\\" + enteredUsername + "Profile.txt";
-        
-        // Check if the username already exists
-        if (usernameExists(userFilename)) {
-            wrongLogin.setText("Username already registered");
+        String enteredUsername = username.getText().trim();
+        String enteredPassword = password.getText().trim();
+    
+        if (enteredUsername.isEmpty() || enteredPassword.isEmpty()) {
+            wrongLogin.setText("Please enter both username and password");
+        } else if (enteredUsername.length() != 8 || !enteredUsername.matches("\\d+")) {
+            wrongLogin.setText("Enter a valid 8-digit numeric username");
+        } else if (!enteredPassword.matches("\\d+")) {
+            wrongLogin.setText("Enter password of numbers only");
         } else {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(userFilename, true))) {
-                writer.write(enteredUsername + "," + enteredPassword + ",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,");
-                writer.newLine();
-
-                try {
-                    usernameWriter = new BufferedWriter(new FileWriter(new File("src\\main\\java\\com\\example\\userProfile.txt")));
+            String userFilename = "src\\main\\java\\" + enteredUsername + "Profile.txt";
+    
+            // Check if the username already exists
+            if (usernameExists(userFilename)) {
+                wrongLogin.setText("Username already registered");
+            } else {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(userFilename, true))) {
+                    writer.write(enteredUsername + "," + enteredPassword + ",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,");
+                    writer.newLine();
+    
+                    try {
+                        usernameWriter = new BufferedWriter(new FileWriter(new File("src\\main\\java\\com\\example\\userProfile.txt")));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    writeUsernameToFile(username.getText());
+    
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("afterLoginPage.fxml"));
+                    Parent root = loader.load();
+    
+                    afterLoginPageController controller = loader.getController();
+                    controller.displayUsername(enteredUsername);
+    
+                    Stage stage = (Stage) signUp.getScene().getWindow();
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
                 } catch (IOException e) {
+                    System.err.println("Error writing to user credentials file.");
                     e.printStackTrace();
                 }
-                writeUsernameToFile(username.getText());
-
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("afterLoginPage.fxml"));
-                Parent root = loader.load();
-
-                afterLoginPageController controller = loader.getController();
-                controller.displayUsername(enteredUsername);
-
-                Stage stage = (Stage) signUp.getScene().getWindow();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException e) {
-                System.err.println("Error writing to user credentials file.");
-                e.printStackTrace();
             }
         }
     }
-}
+    
 
 private void writeUsernameToFile(String username){
     try {
