@@ -138,7 +138,6 @@ public class leaderboardController {
             if ((line = reader.readLine()) != null) {
                 String[] userData = line.split(",");
                 if (userData.length >= 1) {
-                    System.out.println(userData[0]);
                     return userData[0];
                 }
             }
@@ -171,7 +170,6 @@ public class leaderboardController {
                         e.printStackTrace();
                     }
                 } else {
-                    System.out.println(userProfilePath);
                     System.out.println("User profile file not found");
                 }
             } else {
