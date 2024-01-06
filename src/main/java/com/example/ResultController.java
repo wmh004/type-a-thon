@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -144,7 +145,8 @@ public class ResultController implements Initializable {
 
     private static String insertResults(String line, String username, double wpm, double acc) {
         int[] parts = convertToIntegerArray(line.split(","));
-        
+        int[] updatedParts = Arrays.copyOf(parts, parts.length);
+
         //parts[0] username, parts[1] password, parts[2] avg wpm, parts[3] avg acc, parts[4] best wpm, parts[5] best acc
         int avgWPM = parts[2]; int avgACC = parts[3];
         int totalWPM = 0, totalACC = 0;
@@ -155,29 +157,29 @@ public class ResultController implements Initializable {
             }
 
         for(int i = 24; i >= 8; i -= 2) { //Update 10 latest wpm and acc, odd is wpm, even is acc
-            parts[i] = parts[i - 2];
-            parts[i + 1] = parts[i - 1];
+            updatedParts[i] = parts[i - 2];
+            updatedParts[i + 1] = parts[i - 1];
+        }
+        
+        updatedParts[6] = (int) wpm; updatedParts[7] = (int) acc; //insert recent game wpm and acc
+
+        for(int i = 6; i < updatedParts.length; i += 2) { //calculate average wpm and acc
+            totalWPM += updatedParts[i];
+            totalACC += updatedParts[i + 1];
         }
 
-        parts[6] = (int) wpm; parts[7] = (int) acc; //insert recent game wpm and acc
+        avgWPM = (int) totalWPM / 10 ; avgACC = (int) totalACC / 10 ;
+        updatedParts[2] = avgWPM; updatedParts[3] = avgACC;
 
-        for(int i = 6; i < parts.length; i += 2) { //calculate average wpm and acc
-            totalWPM += parts[i];
-            totalACC += parts[i + 1];
+        if(updatedParts[2] > updatedParts[4]) { //compare recent wpm and acc with best wpm and acc
+            updatedParts[4] = updatedParts[2];
         }
 
-        avgWPM = totalWPM ; avgACC = totalACC ;
-        parts[2] = avgWPM; parts[3] = avgACC;
-
-        if(parts[2] > parts[4]) { //compare recent wpm and acc with best wpm and acc
-            parts[4] = parts[2];
+        if(updatedParts[3] > updatedParts[5]) {
+            updatedParts[5] = updatedParts[3];
         }
 
-        if(parts[3] > parts[5]) {
-            parts[5] = parts[3];
-        }
-
-        return convertToString(parts);
+        return convertToString(updatedParts);
     }
 
     private static int[] convertToIntegerArray(String[] credentials) {
