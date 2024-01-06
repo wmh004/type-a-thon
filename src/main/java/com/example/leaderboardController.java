@@ -54,6 +54,8 @@ public class leaderboardController {
         try {
             List<Player> players = readSignUpFiles();
             displayTopPlayers(players);
+            getUsernameFromUserProfile();
+            displayCurrentUserStats();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -128,8 +130,61 @@ public class leaderboardController {
         }
     }
 
+    private String getUsernameFromUserProfile() throws IOException {
+        String userProfilePath = "src\\main\\java\\com\\example\\userProfile.txt";
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(userProfilePath))) {
+            String line;
+            if ((line = reader.readLine()) != null) {
+                String[] userData = line.split(",");
+                if (userData.length >= 1) {
+                    System.out.println(userData[0]);
+                    return userData[0];
+                }
+            }
+        }
+
+        return null; // Username not found in userProfile.txt
+    }
+
+    public void displayCurrentUserStats() {
+        try {
+            String username = getUsernameFromUserProfile();
+    
+            if (username != null) {
+                String userProfilePath = "src\\main\\java\\" + username + "Profile.txt";
+                File userProfileFile = new File(userProfilePath);
+    
+                if (userProfileFile.exists()) {
+                    try (BufferedReader reader = new BufferedReader(new FileReader(userProfilePath))) {
+                        String[] userData = reader.readLine().split(",");
+                        if (userData != null && userData.length >= 6) {
+                            currentUser.setText(userData[0]);
+                            personalAverageWPM.setText(userData[2]);
+                            personalAverageAcc.setText(userData[3]);
+                            personalBestWPM.setText(userData[4]);
+                            personalBestAcc.setText(userData[5]);
+                        } else {
+                            System.out.println("User profile data is incomplete");
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println(userProfilePath);
+                    System.out.println("User profile file not found");
+                }
+            } else {
+                System.out.println("Username not found in userProfile.txt");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public void switchToMainPage(ActionEvent event) throws IOException {
         App a = new App();
         a.changeScene("mainpage.fxml");
     }
 }
+	

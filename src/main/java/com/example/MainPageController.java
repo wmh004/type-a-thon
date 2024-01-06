@@ -32,6 +32,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -916,6 +917,13 @@ public class MainPageController implements Initializable {
     public void quit(ActionEvent event) {
         stage = (Stage) mainPage.getScene().getWindow();
         stage.close();
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter("src\\main\\java\\com\\example\\userProfile.txt"))) {
+        // This will truncate the file and make it empty
+    } catch (IOException e) {
+        e.printStackTrace();
+        // Handle the exception if needed
+    }
     }
 
     public void refresh(ActionEvent event) {
