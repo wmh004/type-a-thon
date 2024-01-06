@@ -117,7 +117,7 @@ public class MainPageController implements Initializable {
     private BufferedWriter accuracyWriter;
 
 
-    List<String> quotesListFiles = Arrays.asList("src\\main\\java\\com\\example\\quotesList.txt", "src\\main\\java\\com\\example\\quotes2List.txt", "src\\main\\java\\com\\example\\quotes3List.txt");
+    List<String> quotesListFiles = Arrays.asList("src\\main\\java\\com\\example\\quotesList.txt", "src\\main\\java\\com\\example\\quotes2List.txt", "src\\main\\java\\com\\example\\quotes3List.txt","src\\main\\java\\com\\example\\quotes4List.txt","src\\main\\java\\com\\example\\quotes5List.txt","src\\main\\java\\com\\example\\quotes6List.txt");
     List<String> quotesList = new ArrayList<>();
     
 
@@ -507,11 +507,17 @@ public class MainPageController implements Initializable {
     private String getMessageForQuoteFile(String quoteFilePath) {
         switch (quoteFilePath) {
             case "src\\main\\java\\com\\example\\quotesList.txt":
-                return "This quote is from Satoru Gojo(Lobotomy Kaisen).";
+                return "This quote is from Martin Luther King.";
             case "src\\main\\java\\com\\example\\quotes2List.txt":
-                return "This quote is from Erwin(Aot).";
+                return "This quote is from Erwin(AOT).";
             case "src\\main\\java\\com\\example\\quotes3List.txt":
-                return "This quote is from source 3.";
+                return "This quote is from Kim Carnby(Sweet home).";
+            case "src\\main\\java\\com\\example\\quotes4List.txt":
+                return "This quote is from Abraham Lincoln";
+            case "src\\main\\java\\com\\example\\quotes5List.txt":
+                return "This quote is from Lee Sookyung(ORV)";
+            case "src\\main\\java\\com\\example\\quotes6List.txt":
+                return "This quote is from Han Sooyoung(ORV)";
             default:
                 return null;
         }
