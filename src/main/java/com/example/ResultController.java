@@ -143,11 +143,11 @@ public class ResultController implements Initializable {
     }
 
     private static String insertResults(String line, String username, double wpm, double acc) {
-        double[] parts = convertToDoubleArray(line.split(","));
+        int[] parts = convertToIntegerArray(line.split(","));
         
         //parts[0] username, parts[1] password, parts[2] avg wpm, parts[3] avg acc, parts[4] best wpm, parts[5] best acc
-        double avgWPM = parts[2]; double avgACC = parts[3];
-        double totalWPM = 0, totalACC = 0;
+        int avgWPM = parts[2]; int avgACC = parts[3];
+        int totalWPM = 0, totalACC = 0;
 
         if(parts[24] != 0) { //If full, set the longest results to 0
                 parts[24] = 0;
@@ -159,7 +159,7 @@ public class ResultController implements Initializable {
             parts[i + 1] = parts[i - 1];
         }
 
-        parts[6] = wpm; parts[7] = acc; //insert recent game wpm and acc
+        parts[6] = (int) wpm; parts[7] = (int) acc; //insert recent game wpm and acc
 
         for(int i = 6; i < parts.length; i += 2) { //calculate average wpm and acc
             totalWPM += parts[i];
@@ -180,19 +180,19 @@ public class ResultController implements Initializable {
         return convertToString(parts);
     }
 
-    private static double[] convertToDoubleArray(String[] credentials) {
-        double[] result = new double[credentials.length];
+    private static int[] convertToIntegerArray(String[] credentials) {
+        int[] result = new int[credentials.length];
         for(int i = 0; i < credentials.length; i++) {
-            result[i] = Double.parseDouble(credentials[i]);
+            result[i] = Integer.parseInt(credentials[i]);
         }
 
         return result;
     }
 
-    private static String convertToString(double[] parts) {
+    private static String convertToString(int[] parts) {
         StringBuilder builder = new StringBuilder();
         for(int i = 0; i < parts.length; i++) {
-            builder.append(String.format("%.2f", parts[i]));
+            builder.append(parts[i]);
             if(i < parts.length - 1) {
                 builder.append(",");
             }
