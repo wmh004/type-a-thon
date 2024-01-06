@@ -1,9 +1,17 @@
 package com.example;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -21,6 +29,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+
 
 public class ResultController implements Initializable {
 
@@ -67,6 +76,16 @@ public class ResultController implements Initializable {
 
     private int totalChar;
 
+    private String username;
+
+    private BufferedWriter resultsWriter;
+
+    private leaderboardController LeaderboardController;
+
+    public void setLeaderboardController(leaderboardController LeaderboardController) {
+        this.LeaderboardController = LeaderboardController;
+    }
+
     public void setCurrentWords(List<String> words) {
         this.currentWords = words;
     }
@@ -96,6 +115,90 @@ public class ResultController implements Initializable {
         Errors.setText(String.valueOf(errorCount));
 
         this.secondsRemaining = secondsRemaining;
+
+        //Retrieve the username from userProfile.txt
+        File directory = new File("src\\main\\java");
+        File userProfile = new File("src\\main\\java\\com\\example\\userProfile.txt");
+        try (BufferedReader reader = new BufferedReader(new FileReader(userProfile))) {
+            username = reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (File file : directory.listFiles()) {
+            if (file.isFile() && file.getName().startsWith(username) && file.getName().endsWith("Profile.txt")) {
+                Path filePath = Paths.get("src\\main\\java\\" + username + "Profile.txt");
+                try { 
+                    List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
+            
+                    String updatedLine = insertResults(lines.get(0), username, wpm, acc);
+            
+                    Files.write(filePath, Collections.singletonList(updatedLine), StandardCharsets.UTF_8);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+        }
+    }
+
+    private static String insertResults(String line, String username, double wpm, double acc) {
+        double[] parts = convertToDoubleArray(line.split(","));
+        
+        //parts[0] username, parts[1] password, parts[2] avg wpm, parts[3] avg acc, parts[4] best wpm, parts[5] best acc
+        double avgWPM = parts[2]; double avgACC = parts[3];
+        double totalWPM = 0, totalACC = 0;
+
+        if(parts[24] != 0) { //If full, set the longest results to 0
+                parts[24] = 0;
+                parts[25] = 0;
+            }
+
+        for(int i = 24; i >= 8; i -= 2) { //Update 10 latest wpm and acc, odd is wpm, even is acc
+            parts[i] = parts[i - 2];
+            parts[i + 1] = parts[i - 1];
+        }
+
+        parts[6] = wpm; parts[7] = acc; //insert recent game wpm and acc
+
+        for(int i = 6; i < parts.length; i += 2) { //calculate average wpm and acc
+            totalWPM += parts[i];
+            totalACC += parts[i + 1];
+        }
+
+        avgWPM = totalWPM ; avgACC = totalACC ;
+        parts[2] = avgWPM; parts[3] = avgACC;
+
+        if(parts[2] > parts[4]) { //compare recent wpm and acc with best wpm and acc
+            parts[4] = parts[2];
+        }
+
+        if(parts[3] > parts[5]) {
+            parts[5] = parts[3];
+        }
+
+        return convertToString(parts);
+    }
+
+    private static double[] convertToDoubleArray(String[] credentials) {
+        double[] result = new double[credentials.length];
+        for(int i = 0; i < credentials.length; i++) {
+            result[i] = Double.parseDouble(credentials[i]);
+        }
+
+        return result;
+    }
+
+    private static String convertToString(double[] parts) {
+        StringBuilder builder = new StringBuilder();
+        for(int i = 0; i < parts.length; i++) {
+            builder.append(String.format("%.2f", parts[i]));
+            if(i < parts.length - 1) {
+                builder.append(",");
+            }
+        }
+
+        return builder.toString();
     }
 
     public void playAgainRandom(ActionEvent event) throws IOException {
@@ -117,6 +220,8 @@ public class ResultController implements Initializable {
 
             // Set the data without modifying the text area
             //mainPageController.initializeDataWithoutChangingUI(secondsRemaining, errorCount, totalChar);
+            ResultController resultController = loader.getController();
+            resultController.setLeaderboardController(this.LeaderboardController);
 
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

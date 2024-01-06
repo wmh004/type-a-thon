@@ -28,6 +28,8 @@ public class loginPageController
     @FXML
     private Button signUpNow;
 
+    private BufferedWriter usernameWriter;
+
     public void checkLogin(ActionEvent event) throws IOException {
         File profilesDirectory = new File("src\\main\\");
         
@@ -51,13 +53,20 @@ public class loginPageController
                             // User found, perform login
                             userFound = true;
                             wrongLogin.setText("Login Success!");
+
+                            try {
+                                usernameWriter = new BufferedWriter(new FileWriter(new File("src\\main\\java\\com\\example\\userProfile.txt")));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            writeUsernameToFile(username.getText());
     
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("afterLoginPage.fxml"));
                             Parent root = loader.load();
     
                             afterLoginPageController controller2 = loader.getController();
                             controller2.displayUsername(username.getText());
-    
+
                             Stage stage = (Stage) loginButton.getScene().getWindow();
                             Scene scene = new Scene(root);
                             stage.setScene(scene);
@@ -75,6 +84,23 @@ public class loginPageController
     
         if (!userFound) {
             wrongLogin.setText("Wrong username or password!");
+        }
+    }
+
+    private void writeUsernameToFile(String username){
+        try {
+            // Write the username to the file
+            usernameWriter.write(username);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (usernameWriter != null) {
+                    usernameWriter.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
     

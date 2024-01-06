@@ -25,6 +25,8 @@ public class signUpPageController
     @FXML
     private Label wrongLogin;
 
+    private BufferedWriter usernameWriter;
+
     public void checkSignUp() {
     String enteredUsername = username.getText().trim();
     String enteredPassword = password.getText().trim();
@@ -34,8 +36,8 @@ public class signUpPageController
     } else if (enteredUsername.length() != 8 || !enteredUsername.matches("\\d+")) {
         wrongLogin.setText("Enter a valid 8-digit numeric username");
     } else {
-        String userFilename = "src\\main\\java" + enteredUsername + "Profile.txt";
-
+        String userFilename = "src\\main\\java\\" + enteredUsername + "Profile.txt";
+        
         // Check if the username already exists
         if (usernameExists(userFilename)) {
             wrongLogin.setText("Username already registered");
@@ -43,6 +45,13 @@ public class signUpPageController
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(userFilename, true))) {
                 writer.write(enteredUsername + "," + enteredPassword + ",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,");
                 writer.newLine();
+
+                try {
+                    usernameWriter = new BufferedWriter(new FileWriter(new File("src\\main\\java\\com\\example\\userProfile.txt")));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                writeUsernameToFile(username.getText());
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("afterLoginPage.fxml"));
                 Parent root = loader.load();
@@ -58,6 +67,23 @@ public class signUpPageController
                 System.err.println("Error writing to user credentials file.");
                 e.printStackTrace();
             }
+        }
+    }
+}
+
+private void writeUsernameToFile(String username){
+    try {
+        // Write the username to the file
+        usernameWriter.write(username);
+    } catch (IOException e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            if (usernameWriter != null) {
+                usernameWriter.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
