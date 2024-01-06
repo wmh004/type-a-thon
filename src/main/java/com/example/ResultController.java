@@ -146,7 +146,7 @@ public class ResultController implements Initializable {
         double[] parts = convertToDoubleArray(line.split(","));
         
         //parts[0] username, parts[1] password, parts[2] avg wpm, parts[3] avg acc, parts[4] best wpm, parts[5] best acc
-        double avgWPM = parts[2]; double avgACC = parts[3];
+        //double avgWPM = parts[2]; double avgACC = parts[3];
         double totalWPM = 0, totalACC = 0;
 
         if(parts[24] != 0) { //If full, set the longest results to 0
@@ -166,14 +166,14 @@ public class ResultController implements Initializable {
             totalACC += parts[i + 1];
         }
 
-        avgWPM = totalWPM ; avgACC = totalACC ;
-        parts[2] = avgWPM; parts[3] = avgACC;
+        parts[2] = totalWPM / 10.0; parts[3] = totalACC / 10.0; 
+        //avgWPM = parts[2]; avgACC = parts[3];
 
-        if(parts[2] > parts[4]) { //compare recent wpm and acc with best wpm and acc
+        if(parts[2] >= parts[4]) { //compare recent wpm and acc with best wpm and acc
             parts[4] = parts[2];
         }
 
-        if(parts[3] > parts[5]) {
+        if(parts[3] >= parts[5]) {
             parts[5] = parts[3];
         }
 
@@ -194,7 +194,7 @@ public class ResultController implements Initializable {
         for(int i = 0; i < parts.length; i++) {
             builder.append(String.format("%.2f", parts[i]));
             if(i < parts.length - 1) {
-                builder.append(",");
+                builder.append(", ");
             }
         }
 
