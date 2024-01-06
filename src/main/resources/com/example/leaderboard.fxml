@@ -212,6 +212,11 @@
                   <Font size="30.0" />
                </font>
             </Text>
+            <Label fx:id="personalBestWPM1" layoutX="433.0" layoutY="31.0" prefHeight="46.0" prefWidth="294.0" text="-">
+               <font>
+                  <Font name="System Italic" size="30.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </bottom>

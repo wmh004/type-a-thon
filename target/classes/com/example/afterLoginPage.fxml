@@ -21,11 +21,7 @@
                   <Font name="System Bold Italic" size="60.0" />
                </font>
             </Label>
-            <Button fx:id="logOut" layoutX="729.0" layoutY="558.0" mnemonicParsing="false" text="Log out">
-               <font>
-                  <Font size="25.0" />
-               </font></Button>
-            <Button fx:id="back" layoutX="738.0" layoutY="623.0" mnemonicParsing="false" onAction="#switchToMainPage" prefHeight="34.0" prefWidth="102.0" text="Back">
+            <Button fx:id="back" layoutX="738.0" layoutY="610.0" mnemonicParsing="false" onAction="#switchToMainPage" prefHeight="34.0" prefWidth="102.0" text="Back">
                <font>
                   <Font size="25.0" />
                </font></Button>

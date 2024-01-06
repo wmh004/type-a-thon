@@ -10,8 +10,6 @@ import java.io.IOException;
 public class afterLoginPageController
 {
     @FXML
-    private Button logOut;
-    @FXML
     private Button back;
     @FXML
     private Label usernameDisplay;
