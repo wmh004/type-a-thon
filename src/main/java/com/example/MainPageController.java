@@ -150,8 +150,6 @@ public class MainPageController implements Initializable {
     void loadTest() {
         int wordsToDisplay = wordChoiceBox.getValue();
 
-        //toggleStopwatch();
-
         if (wordsToDisplay == 10 || wordsToDisplay == 25 || wordsToDisplay == 50 || wordsToDisplay == 100) {
             timeLabel.setVisible(false); // Hide timelabel for specific word counts
             elapsedTimeLabel.setVisible(true);
@@ -200,7 +198,6 @@ public class MainPageController implements Initializable {
                 if (!timerStarted) {
                     startTimer();
                     timerStarted = true;
-                    //toggleStopwatch();
                 }
 
                 if (event.getCharacter().equals(" ")) {
@@ -432,6 +429,11 @@ public class MainPageController implements Initializable {
         }
 
         String selectedQuote = String.join(" ", quotesList);
+        // Add a message based on the selected quote file
+        String message = getMessageForQuoteFile(quotesListFilePath);
+        if (message != null && !message.isEmpty()) {
+            showAlert((Stage) textDisplay.getScene().getWindow(), "Quote Information", message);
+        }
         textDisplay.setText(selectedQuote);
 
         // Reset the state as needed
@@ -501,6 +503,32 @@ public class MainPageController implements Initializable {
         textDisplay.setEditable(false);
         enteredWords = List.of(textDisplay.getText().split("\\s+"));
     }
+
+    private String getMessageForQuoteFile(String quoteFilePath) {
+        switch (quoteFilePath) {
+            case "src\\main\\java\\com\\example\\quotesList.txt":
+                return "This quote is from Satoru Gojo(Lobotomy Kaisen).";
+            case "src\\main\\java\\com\\example\\quotes2List.txt":
+                return "This quote is from Erwin(Aot).";
+            case "src\\main\\java\\com\\example\\quotes3List.txt":
+                return "This quote is from source 3.";
+            default:
+                return null;
+        }
+    }
+    
+    private void showAlert(Stage ownerStage, String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+    
+        // Set the owner stage to make the alert appear on top of it
+        alert.initOwner(ownerStage);
+    
+        alert.showAndWait();
+    }
+    
 
     @FXML
     void SUDDENDEATHMODE() {
@@ -628,7 +656,6 @@ public class MainPageController implements Initializable {
     }
 
     void change() {
-        // Countdown logic
         if (timerStarted) {
             if (secs == 0) {
                 if (mins == 0) {
@@ -636,13 +663,12 @@ public class MainPageController implements Initializable {
                     textDisplay.setEditable(false);
                     textDisplay.setFocusTraversable(false);
                     textDisplay.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
-                    // Additional logic if needed after countdown completion
                 } else {
                     mins--;
                     secs = 59;
                 }
             } else {
-                //secs--;
+                secs--;
     
                 // Update secondsRemaining
                 secondsRemaining = mins * 60 + secs;
@@ -651,9 +677,17 @@ public class MainPageController implements Initializable {
     
                 // Update elapsed time
                 updateElapsedTime();
+    
+                // Check if the timer has reached 0
+                if (secs <= 0 && mins <= 0) {
+                    stopTimer(); // Stop the timer
+                    switchSceneToResult(); // Switch to results scene
+                    secondsRemaining = 0; // Ensure secondsRemaining is set to 0
+                }
             }
         }
     }
+    
 
     public void setEnteredWords(List<String> enteredWords) {
         this.enteredWords = enteredWords;
@@ -834,15 +868,16 @@ public class MainPageController implements Initializable {
     
         // Create a KeyFrame that updates the timer every second
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), event -> {
-            secs--;
+            //secs--;
     
             // Update your UI with the current time
             updateTimeLabel();
     
             // Check if the timer has reached 0
-            if (secs <= 0) {
+            if (secs <= 0 && mins <= 0) {
                 stopTimer(); // Stop the timer
                 switchSceneToResult(); // Switch to results scene
+                secondsRemaining = 0; // Ensure secondsRemaining is set to 0
             }
         });
     
@@ -850,6 +885,7 @@ public class MainPageController implements Initializable {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
+    
 
     void stopTimer() {
         //timeline.pause();
