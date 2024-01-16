@@ -127,18 +127,20 @@ public class ResultController implements Initializable {
         }
 
         for (File file : directory.listFiles()) {
-            if (file.isFile() && file.getName().contains(username) && file.getName().endsWith("Profile.txt")) {
-                Path filePath = Paths.get("src\\main\\java\\" + username + "Profile.txt");
-                try { 
-                    List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
+            if(username != null){
+                if (file.isFile() && file.getName().contains(username) && file.getName().endsWith("Profile.txt")) {
+                    Path filePath = Paths.get("src\\main\\java\\" + username + "Profile.txt");
+                    try { 
+                        List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
             
-                    String updatedLine = insertResults(lines.get(0), username, wpm, acc);
+                        String updatedLine = insertResults(lines.get(0), username, wpm, acc);
             
-                    Files.write(filePath, Collections.singletonList(updatedLine), StandardCharsets.UTF_8);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                        Files.write(filePath, Collections.singletonList(updatedLine), StandardCharsets.UTF_8);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
                 }
-                break;
             }
         }
     }
@@ -218,6 +220,8 @@ public class ResultController implements Initializable {
     @FXML
     void playAgainSame(ActionEvent event) {
         try {
+            App a = new App();
+            a.changeScene("mainpage.fxml");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("mainpage.fxml"));
             Parent root = loader.load();
 
@@ -229,11 +233,9 @@ public class ResultController implements Initializable {
 
             // Set the data without modifying the text area
             //mainPageController.initializeDataWithoutChangingUI(secondsRemaining, errorCount, totalChar);
-            ResultController resultController = loader.getController();
-            resultController.setLeaderboardController(this.LeaderboardController);
-
+            
+            Stage stage = App.getStage(); // Use the static method to get the stage
             Scene scene = new Scene(root);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
         } catch (IOException ex) {

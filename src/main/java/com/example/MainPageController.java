@@ -422,6 +422,8 @@ public class MainPageController implements Initializable {
     void replaceTextWithQuotes() {
         String quotesListFilePath = getRandomQuotesListFilePath();
         quotesList = readFile(quotesListFilePath);
+        timeLabel.setVisible(false); // Hide timelabel for specific word counts
+        elapsedTimeLabel.setVisible(true);
 
         if (quotesList.isEmpty()) {
             System.out.println("Quotes list is empty.");
@@ -940,6 +942,8 @@ public class MainPageController implements Initializable {
     @FXML
     void switchSceneToResult() {
         try {
+            App a = new App();
+            a.changeScene("Results.fxml");
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("Results.fxml"));
             Parent root = loader.load();
@@ -948,12 +952,10 @@ public class MainPageController implements Initializable {
             ResultController controller = loader.getController();
             controller.initializeMyData(secondsRemaining, errorCount, totalChar, elapsedMins, elapsedSecs);
             controller.setCurrentWords(enteredWords);
-    
-            Stage currentStage = (Stage) textDisplay.getScene().getWindow(); // Assuming textDisplay is part of the current scene
+            Stage stage = App.getStage(); // Use the static method to get the stage
             Scene scene = new Scene(root);
-    
-            currentStage.setScene(scene);
-            currentStage.show();
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException ex) {
             ex.printStackTrace();
         }

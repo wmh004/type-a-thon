@@ -16,6 +16,10 @@ public class App extends Application {
     private static Stage stg;
     private static Scene scene;
     
+    public static Stage getStage() {
+        return stg;
+    }
+    
     @Override
     public void start(Stage stage) throws IOException {
         stg = stage;
