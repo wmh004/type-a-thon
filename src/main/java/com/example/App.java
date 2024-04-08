@@ -25,7 +25,7 @@ public class App extends Application {
         stg = stage;
         stage.setResizable(true);
         Parent root = FXMLLoader.load(getClass().getResource("mainpage.fxml"));
-        stage.setTitle("Type-a-Thon");
+        stage.setTitle("Type");
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/keyboard.png")));
         scene = new Scene(root, 1600, 900);
         stage.setFullScreen(true);
